@@ -1,12 +1,12 @@
 # GameJam
 GameJam Octobre 2018 UQAC
 
-#Idée de jeu
+# Idée de jeu
 
 Jeu axé survie-stratégie "a la XCOM"
 D'un côté gestion de ton camp composé de survivants et de combattants
 
-#Le CAMP :
+# Le CAMP :
 Il faut :
 -suffisamment de ressources pour que ton camp survive
 -recruter et améliorer tes combattants
@@ -16,7 +16,7 @@ Il faut :
 -suivant les saisons t'as besoin de ressources différentes (ex fourrures en hiver)
 ->LE CHANGEMENT
 
-#Les missions :
+# Les missions :
 
 trois types de missions :
 -missions d'escorte ->récupérer des survivants
