@@ -8,22 +8,17 @@ public class HUDMission : MonoBehaviour {
     public List<GameObject> MissionsPins;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 
         GenerationMissionDefense.GenerateMission();
-        GenerationMissionDefense.GenerateMission();
-        GenerationMissionDefense.GenerateMission();
-        GenerationMissionDefense.GenerateMission();
-        GenerationMissionDefense.GenerateMission();
-
 
         for (int i = 0; i < MissionsPins.Count; i++)
             MissionsPins[i].transform.position = CampementData.Instance.missionsDisponible[i].GetPositionOnMap();
                     
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	public void CheckMission(int index)
+    {
+        Debug.Log(CampementData.Instance.missionsDisponible[index]);
+    }
 }

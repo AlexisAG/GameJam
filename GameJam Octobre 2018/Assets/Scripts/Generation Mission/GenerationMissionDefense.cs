@@ -9,12 +9,13 @@ public class GenerationMissionDefense {
         Mission mission = new Mission(Mission.TypeMission.Defense, (byte)Random.Range(3, 7), CreateLvlMission(),
                                                        0, CreateName(), new Vector3(Random.Range(5, 50), Random.Range(5, 50)));
         mission.Ennemis = CreateEnnemi(mission.GetLvlMission());
+        Debug.Log(mission);
         CampementData.Instance.missionsDisponible.Add(mission);
     }
 
     private static string CreateName ()
     {
-        string[] temp = System.IO.File.ReadAllLines("DefenseName.txt");
+        string[] temp = System.IO.File.ReadAllLines("Assets/Scripts/Generation Mission/DefenseName.txt");
         return temp[Random.Range(0, temp.Length)];
     }
 

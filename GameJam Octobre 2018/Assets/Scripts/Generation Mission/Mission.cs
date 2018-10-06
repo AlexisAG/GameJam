@@ -22,7 +22,6 @@ public class Mission {
         p_gainMission = gain;
         p_nomMission = nom;
         p_lvlMission = lvlMission;
-        CampementData.Instance.missionsDisponible.Add(this);
     }
 
     /* ACCESSEUR */
@@ -59,5 +58,10 @@ public class Mission {
     {
         if (p_typeObjectif == TypeMission.Defense)
         p_positionMapMission = pos;
+    }
+
+    public override string ToString()
+    {
+        return p_nomMission + " " + p_lvlMission;
     }
 }
