@@ -80,7 +80,7 @@ public abstract class Batiment : MonoBehaviour
     {
         Nom = typeBatiment + " Niv. 1";
         NiveauBatiment = 0;
-        CoutEnRessources = 10;
+        CoutEnRessources = 0;
         RessourcePourUpgrade = "bois";
         UpgradePossible = Inventaire.Instance.qteBois >= CoutEnRessources && ressourcePourUpgrade == "bois" ? true : false;
     }
