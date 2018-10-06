@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Guerrier : TypeCombattant {
 
+    const string nameCombattant = "Guerrier";
     const int hpMin = 9;
     const int hpMax = 12;
     const int gainHpParNiveau = 3;
@@ -16,27 +17,10 @@ public class Guerrier : TypeCombattant {
     const int mpa = 4;
     const int range = 1;
 
-    public Guerrier(int niveau = 1)
+    public Guerrier(int niveau = 1) : base(nameCombattant, hpMin, hpMax, gainHpParNiveau, degatsMin, degatsMax, gainDegatsParNiveau, pa, mpa, range, niveau)
     {
-        this.NomCombattant = "Guerrier";
-        this.HpCombattant = Random.Range(hpMin, hpMax) + niveau * gainHpParNiveau;
-        this.DegatsCombattant = Random.Range(degatsMin, degatsMax) + niveau * gainDegatsParNiveau;
-        this.PaCombattant = pa;
-        this.MpaCombattant = mpa;
-        this.AttackRangeCombattant = range;
-        this.ExperienceActuelCombattant = 0;
-        this.ExperienceNiveauCombattant = 0;
-        this.NiveauCombattant = 1;
+
     }
-
-    public override void UpNiveauCombattant()
-    {
-        this.NiveauCombattant++;
-        this.HpCombattant += gainHpParNiveau;
-        this.DegatsCombattant += gainDegatsParNiveau;
-    }
-
-
 
     // Use this for initialization
     void Start () {

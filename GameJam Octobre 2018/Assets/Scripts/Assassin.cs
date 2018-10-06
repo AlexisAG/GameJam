@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Assassin : TypeCombattant {
 
-	const int hpMin = 3;
+    const string nameCombattant = "Assassin";
+    const int hpMin = 3;
 	const int hpMax = 5;
 	const int gainHpParNiveau = 1;
 
@@ -16,23 +17,9 @@ public class Assassin : TypeCombattant {
 	const int mpa = 4;
 	const int range = 1;
 
-	public Assassin(int niveau = 1){
-		this.NomCombattant = "Assassin";
-        this.HpCombattant = Random.Range(hpMin, hpMax) + niveau * gainHpParNiveau;
-        this.DegatsCombattant = Random.Range(degatsMin, degatsMax) + niveau * gainDegatsParNiveau;
-        this.PaCombattant = pa;
-		this.MpaCombattant = mpa;
-		this.AttackRangeCombattant = range;
-        this.ExperienceActuelCombattant = 0;
-        this.ExperienceNiveauCombattant = 0;
-        this.NiveauCombattant = 1;
-    }
-
-    public override void UpNiveauCombattant()
+    public Assassin(int niveau = 1) : base(nameCombattant, hpMin, hpMax, gainHpParNiveau, degatsMin, degatsMax, gainDegatsParNiveau, pa, mpa, range, niveau)
     {
-        this.NiveauCombattant++;
-        this.HpCombattant += gainHpParNiveau;
-        this.DegatsCombattant += gainDegatsParNiveau;
+
     }
 
     // Use this for initialization

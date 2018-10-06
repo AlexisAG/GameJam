@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Eclaireur : TypeCombattant {
 
+    const string nameCombattant = "Eclaireur";
     const int hpMin = 5;
     const int hpMax = 9;
     const int gainHpParNiveau = 2;
@@ -16,23 +17,9 @@ public class Eclaireur : TypeCombattant {
     const int mpa = 7;
     const int range = 1;
 
-    public Eclaireur(int niveau = 1){
-        this.NomCombattant = "Eclaireur";
-        this.HpCombattant = Random.Range(hpMin, hpMax) + niveau * gainHpParNiveau;
-        this.DegatsCombattant = Random.Range(degatsMin, degatsMax) + niveau * gainDegatsParNiveau;
-        this.PaCombattant = pa;
-        this.MpaCombattant = mpa;
-        this.AttackRangeCombattant = range;
-        this.ExperienceActuelCombattant = 0;
-        this.ExperienceNiveauCombattant = 0;
-        this.NiveauCombattant = 1;
-    }
-
-    public override void UpNiveauCombattant()
+    public Eclaireur(int niveau = 1) : base(nameCombattant, hpMin, hpMax, gainHpParNiveau, degatsMin, degatsMax, gainDegatsParNiveau, pa, mpa, range, niveau)
     {
-        this.NiveauCombattant++;
-        this.HpCombattant += gainHpParNiveau;
-        this.DegatsCombattant += gainDegatsParNiveau;
+
     }
 
     // Use this for initialization

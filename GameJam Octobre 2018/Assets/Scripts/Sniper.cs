@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Sniper : TypeCombattant {
 
+    const string nameCombattant = "Sniper";
 	const int hpMin = 4;
 	const int hpMax = 6;
 	const int gainHpParNiveau = 1;
@@ -16,23 +17,9 @@ public class Sniper : TypeCombattant {
 	const int mpa = 7;
 	const int range = 5;
 
-	public Sniper(int niveau = 1){
-		this.NomCombattant = "Sniper";
-		this.HpCombattant = Random.Range(hpMin,hpMax) + niveau* gainHpParNiveau;
-		this.DegatsCombattant = Random.Range(degatsMin,degatsMax) + niveau*gainDegatsParNiveau;
-		this.PaCombattant = pa;
-		this.MpaCombattant = mpa;
-		this.AttackRangeCombattant = range;
-        this.ExperienceActuelCombattant = 0;
-        this.ExperienceNiveauCombattant = 0;
-        this.NiveauCombattant = 1;
-    }
-
-    public override void UpNiveauCombattant()
+    public Sniper(int niveau = 1) : base(nameCombattant, hpMin, hpMax, gainHpParNiveau, degatsMin, degatsMax, gainDegatsParNiveau, pa, mpa, range, niveau)
     {
-        this.NiveauCombattant++;
-        this.HpCombattant += gainHpParNiveau;
-        this.DegatsCombattant += gainDegatsParNiveau;
+
     }
 
     // Use this for initialization

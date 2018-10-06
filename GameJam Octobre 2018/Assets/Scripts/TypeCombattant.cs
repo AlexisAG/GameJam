@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TypeCombattant : MonoBehaviour {
+public class TypeCombattant : MonoBehaviour {
 
     public enum nomTypeCombattant { Guerrier, Assassin, Sniper, Eclaireur }
     private string nomCombattant;
@@ -11,9 +11,22 @@ public abstract class TypeCombattant : MonoBehaviour {
     private int paCombattant;
     private int mpaCombattant;
     private int attackRangeCombattant;
+    private int gainHpParNiveau;
+    private int gainDegatsParNiveau;
     private List<Competence> lesCompetences;
     private int niveauCombattant;
-
+    public TypeCombattant(string nameCombattant,int hpMin, int hpMax, int t_gainHpParNiveau, int degatsMin, int degatsMax, int t_gainDegatsParNiveau, int pa, int mpa, int range, int niveau)
+    {
+        this.NomCombattant = nameCombattant;
+        this.HpCombattant = Random.Range(hpMin, hpMax) + niveau * t_gainHpParNiveau;
+        this.DegatsCombattant = Random.Range(degatsMin, degatsMax) + niveau * t_gainDegatsParNiveau;
+        this.GainHpParNiveau = t_gainHpParNiveau;
+        this.GainDegatsParNiveau = t_gainDegatsParNiveau;
+        this.PaCombattant = pa;
+        this.MpaCombattant = mpa;
+        this.AttackRangeCombattant = range;
+        this.NiveauCombattant = 1;
+    }
     public void recoitDegats(TypeCombattant adversaire, int degatsBuff = 0){
         this.HpCombattant -= adversaire.DegatsCombattant + degatsBuff;
         if(HpCombattant <=0){
@@ -111,32 +124,6 @@ public abstract class TypeCombattant : MonoBehaviour {
         }
     }
 
-    public int ExperienceActuelCombattant
-    {
-        get
-        {
-            return experienceActuelCombattant;
-        }
-
-        set
-        {
-            experienceActuelCombattant = value;
-        }
-    }
-
-    public int ExperienceNiveauCombattant
-    {
-        get
-        {
-            return experienceNiveauCombattant;
-        }
-
-        set
-        {
-            experienceNiveauCombattant = value;
-        }
-    }
-
     public int NiveauCombattant
     {
         get
@@ -150,6 +137,36 @@ public abstract class TypeCombattant : MonoBehaviour {
         }
     }
 
-    public abstract void UpNiveauCombattant();
+    public int GainHpParNiveau
+    {
+        get
+        {
+            return gainHpParNiveau;
+        }
+
+        set
+        {
+            gainHpParNiveau = value;
+        }
+    }
+
+    public int GainDegatsParNiveau
+    {
+        get
+        {
+            return gainDegatsParNiveau;
+        }
+
+        set
+        {
+            gainDegatsParNiveau = value;
+        }
+    }
+
+    public void UpNiveauCombattant(){
+        this.NiveauCombattant++;
+        this.HpCombattant += GainHpParNiveau;
+        this.DegatsCombattant += GainDegatsParNiveau;
+    }
 
 }
