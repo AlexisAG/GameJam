@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 public class Terrain {
-
+    //temp
     private int typeCase;
     private float xPos;
     private float yPos;
