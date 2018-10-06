@@ -62,16 +62,16 @@ public class Campement : MonoBehaviour {
         ResetDropDownOption();
     }
 
-    void NewDay()
+    public void NewDay()
     {
         Inventaire.Instance.AddLastDayRessources();
+       
+
+
         if (Inventaire.Instance.qteNourriture>= CampementData.Instance.nbSurvivant)
         {
-            for (int i = 0; i < CampementData.Instance.nbSurvivant; i++)
-            {
-                Inventaire.Instance.qteNourriture -= CampementData.Instance.nbSurvivant;
-                CampementData.Instance.survivantContent = true;
-            }
+            Inventaire.Instance.qteNourriture -= CampementData.Instance.nbSurvivant;
+            CampementData.Instance.survivantContent = true;
         }
         else
         {
@@ -79,7 +79,10 @@ public class Campement : MonoBehaviour {
             Inventaire.Instance.qteNourriture = 0;
             Famine(nourritureManquante);
         }
-        
+
+        CampementData.Instance.nbSurvivantNonOccupé = CampementData.Instance.nbSurvivant;
+        ResetDropDownOption();
+
     }
 
     //perte de survivant

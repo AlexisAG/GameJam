@@ -37,6 +37,11 @@ public class Inventaire : MonoBehaviour {
         qteMetal += qteMetalToAdd;
         qteNourriture += qteNourritureToAdd;
         qtePierre += qtePierreToAdd;
+
+        qteBoisToAdd = 0;
+        qteMetalToAdd = 0;
+        qteNourritureToAdd = 0;
+        qtePierreToAdd = 0;
     }
 
 }
