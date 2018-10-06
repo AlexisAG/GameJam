@@ -44,13 +44,3 @@ public class Soldat : MonoBehaviour {
             buffCombattant.TropDeNourriture();
         }
     }
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-}
