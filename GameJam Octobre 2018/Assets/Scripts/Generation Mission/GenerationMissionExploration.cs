@@ -7,7 +7,7 @@ public class GenerationMissionExploration {
     public static void GenerateMission()
     {
         Mission mission = new Mission(Mission.TypeMission.Recherche, (byte)Random.Range(3, 7), CreateLvlMission(),
-                                        0, "La recherche du Graal", new Vector3(Random.Range(5, 50), Random.Range(5, 50)));
+                                        0, "La recherche du Graal", new Vector3(Random.Range(-250, 250), Random.Range(-250, 250)));
         mission.Ennemis = CreateEnnemi(mission.GetLvlMission());
 
         CampementData.Instance.missionsDisponible.Add(mission);

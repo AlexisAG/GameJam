@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mission {
+public class Mission : ScriptableObject {
 
 	public enum TypeMission : byte { Defense, Survivant, Recherche };
 
@@ -22,6 +22,8 @@ public class Mission {
         p_gainMission = gain;
         p_nomMission = nom;
         p_lvlMission = lvlMission;
+        p_positionMapMission = positionMapMission;
+
     }
 
     /* ACCESSEUR */

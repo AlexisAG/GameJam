@@ -30,19 +30,16 @@ public class CampementData : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        nbSurvivant = 20; // valeur a modifier
-        nbSurvivantNonOccupé = nbSurvivant;
-        survivantContent = true; // valeur a modifier
-        soldats = new List<Soldat>();
-        missionsDisponible = new List<Mission>();
-        if (instance != null && instance != this)
+        if(instance == null)
         {
-            Destroy(this.gameObject);
-            return;
+            nbSurvivant = 20; // valeur a modifier
+            nbSurvivantNonOccupé = nbSurvivant;
+            survivantContent = true; // valeur a modifier
+            soldats = new List<Soldat>();
+            missionsDisponible = new List<Mission>();
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
-
-        instance = this;
-        DontDestroyOnLoad(this.gameObject);
 
     }
 }
