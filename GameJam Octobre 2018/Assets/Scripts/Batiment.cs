@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,8 @@ public abstract class Batiment : MonoBehaviour {
     private int niveauBatiment;
     private bool upgradePossible;
     private string sprite;
-    private int cout;
+    private int coutEnRessources;
+    private string typeRessourcePourUpgrade;
 
     public string Nom
     {
@@ -49,19 +51,6 @@ public abstract class Batiment : MonoBehaviour {
         }
     }
 
-    public int Cout
-    {
-        get
-        {
-            return cout;
-        }
-
-        set
-        {
-            cout = value;
-        }
-    }
-
     public bool UpgradePossible
     {
         get
@@ -75,5 +64,42 @@ public abstract class Batiment : MonoBehaviour {
         }
     }
 
+    public string TypeRessourcePourUpgrade
+    {
+        get
+        {
+            return typeRessourcePourUpgrade;
+        }
+
+        set
+        {
+            typeRessourcePourUpgrade = value;
+        }
+    }
+
+    public int CoutEnRessources
+    {
+        get
+        {
+            return coutEnRessources;
+        }
+
+        set
+        {
+            coutEnRessources = value;
+        }
+    }
+
     public abstract void Ameliorer();
+
+    public void InitBatiment(Type typeBatiment)
+    {
+        Nom = typeBatiment + " Niv. 1";
+        NiveauBatiment = 1;
+        UpgradePossible = Inventaire.Instance.qteBois >= CoutEnRessources && TypeRessourcePourUpgrade == "bois" ? true : false;
+        Sprite = "";
+        CoutEnRessources = 10;
+        TypeRessourcePourUpgrade = "bois";
+        CoutEnRessources = 10;
+    }
 }

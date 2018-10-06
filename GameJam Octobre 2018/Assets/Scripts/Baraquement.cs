@@ -1,19 +1,25 @@
 ﻿public class Baraquement : Batiment
 {
 
-    public int niveauDesRecrues;
-    public string typeRessourcePourUpgrade;
-    public int nbRessourcesPourUpgrade;
+    private int niveauDesNouvellesRecrues;
+
+    public int NiveauDesNouvellesRecrues
+    {
+        get
+        {
+            return niveauDesNouvellesRecrues;
+        }
+
+        set
+        {
+            niveauDesNouvellesRecrues = value;
+        }
+    }
 
     private void Start()
     {
-        Nom = "Baraquement Niv. 1";
-        NiveauBatiment = 1;
-        niveauDesRecrues = 1;
-        UpgradePossible = Inventaire.Instance.qteBois >= nbRessourcesPourUpgrade && typeRessourcePourUpgrade == "bois" ? true : false;
-        Sprite = "";
-        Cout = 10;
-        typeRessourcePourUpgrade = "bois";
+        InitBatiment(this.GetType());
+        print(this.ToString());
     }
 
     public override void Ameliorer()
@@ -21,28 +27,27 @@
         if (UpgradePossible)
         {
             NiveauBatiment++;
-            niveauDesRecrues++;
+            NiveauDesNouvellesRecrues++;
             Nom = "Baraquement Niv. " + NiveauBatiment;
-            Sprite = "" + NiveauBatiment + ".png";
-            Cout++;
-            nbRessourcesPourUpgrade *= NiveauBatiment;
+            Sprite = this.GetType().ToString() + "_Niv" +  NiveauBatiment + ".png";
+            CoutEnRessources *= NiveauBatiment;
 
             switch (NiveauBatiment)
             {
                 case 2:
                 case 3:
                 case 4:
-                    typeRessourcePourUpgrade = "bois";
+                    TypeRessourcePourUpgrade = "bois";
                     break;
                 case 5:
                 case 6:
                 case 7:
-                    typeRessourcePourUpgrade = "pierre";
+                    TypeRessourcePourUpgrade = "pierre";
                     break;
                 case 8:
                 case 9:
                 case 10:
-                    typeRessourcePourUpgrade = "metal";
+                    TypeRessourcePourUpgrade = "metal";
                     break;
             }
         }
