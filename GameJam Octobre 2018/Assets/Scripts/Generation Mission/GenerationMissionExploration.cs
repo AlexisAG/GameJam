@@ -2,20 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenerationMissionDefense {
+public class GenerationMissionExploration {
 
-    public static void GenerateMission ()
+    public static void GenerateMission()
     {
-        Mission mission = new Mission(Mission.TypeMission.Defense, (byte)Random.Range(3, 7), CreateLvlMission(),
-                                                       0, CreateName(), new Vector2Int(Random.Range(5, 20), Random.Range(5, 20)));
+        Mission mission = new Mission(Mission.TypeMission.Recherche, (byte)Random.Range(3, 7), CreateLvlMission(),
+                                        0, "La recherche du Graal", new Vector2Int(Random.Range(5, 20), Random.Range(5, 20)));
         mission.Ennemis = CreateEnnemi(mission.GetLvlMission());
-        CampementData.Instance.missionsDisponible.Add(mission);
-    }
 
-    private static string CreateName ()
-    {
-        string[] temp = System.IO.File.ReadAllLines("DefenseName.txt");
-        return temp[Random.Range(0, temp.Length)];
+        CampementData.Instance.missionsDisponible.Add(mission);
     }
 
     private static byte CreateLvlMission()
