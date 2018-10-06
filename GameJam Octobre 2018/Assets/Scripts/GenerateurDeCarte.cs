@@ -77,6 +77,19 @@ public class GenerateurDeCarte : MonoBehaviour {
         }
     }
 
+    public Dictionary<Vector2Int, Terrain> Tableauterrain
+    {
+        get
+        {
+            return tableauterrain;
+        }
+
+        set
+        {
+            tableauterrain = value;
+        }
+    }
+
 
     // Use this for initialization
     void Start () {
@@ -101,7 +114,7 @@ public class GenerateurDeCarte : MonoBehaviour {
             for (int j = 0; j < ySize; j++)
             {
 
-                tableauterrain.Add(new Vector2Int(i, j), new Terrain(AleatoireDesCases(i, j), i, j, Season));
+                Tableauterrain.Add(new Vector2Int(i, j), new Terrain(AleatoireDesCases(i, j), i, j, Season));
             }
         }
     }
@@ -118,7 +131,7 @@ public class GenerateurDeCarte : MonoBehaviour {
         } else
         {
             aucunSolProbabilte = 0;
-            obstacleProbabilite = 15;
+            obstacleProbabilite = 10;
         }
 
         int aleatoireObtenu = Mathf.FloorToInt( Random.Range(0, 1000));
@@ -142,9 +155,9 @@ public class GenerateurDeCarte : MonoBehaviour {
     {
         int xAleatoireObtenu = Mathf.FloorToInt(Random.Range((XSize / 5)+2, (XSize/10)+2));
         int yAleatoireObtenu = Mathf.FloorToInt(Random.Range((YSize / 5)+2, (YSize/10)+2));
-        if(tableauterrain[new Vector2Int(xAleatoireObtenu,yAleatoireObtenu)].TypeCase == 1)
+        if(Tableauterrain[new Vector2Int(xAleatoireObtenu,yAleatoireObtenu)].TypeCase == 1)
         {
-            tableauterrain[new Vector2Int(xAleatoireObtenu, yAleatoireObtenu)].IsFree = false;
+            Tableauterrain[new Vector2Int(xAleatoireObtenu, yAleatoireObtenu)].IsFree = false;
             ObjectifMission = new Objectif(xAleatoireObtenu, yAleatoireObtenu, TypeMission);
         } else
         {
@@ -153,11 +166,10 @@ public class GenerateurDeCarte : MonoBehaviour {
             {
                 for (int j = -1; j <= 1 && typeCase != 1; j ++)
                 {
-                    if(tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].IsFree == true)
+                    if(Tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].IsFree == true)
                     {
                         typeCase = 1;
-                        tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].IsFree = false;
-                        Debug.Log("Putain tu es free tes grands morts : " + tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].IsFree);
+                        Tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].IsFree = false;
                         ObjectifMission = new Objectif(xAleatoireObtenu + i, yAleatoireObtenu + j, TypeMission);
                     }
                 }
@@ -167,7 +179,6 @@ public class GenerateurDeCarte : MonoBehaviour {
 
     private void PlacerJoueur()
     {
-        Debug.Log("Début placer joueur");
         JoueurSpawnPos = new List<Vector2>();
         int xAleatoireObtenu = Mathf.FloorToInt(Random.Range(XSize-(XSize / 10) - 2, XSize-(XSize / 5) - 2));
         int yAleatoireObtenu = Mathf.FloorToInt(Random.Range(YSize-(YSize / 10) - 2, YSize-(YSize / 5) - 2));
@@ -178,12 +189,10 @@ public class GenerateurDeCarte : MonoBehaviour {
         {
             for (int j = -1; j <= 1 && nbSpawn > 0; j++)
             {
-                Debug.Log("Tentative placement personnage");
-                if (tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].IsFree == true)
+                if (Tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].IsFree == true)
                 {
                     nbSpawn--;
                     JoueurSpawnPos.Add(new Vector2(xAleatoireObtenu + i, yAleatoireObtenu + j));
-                    Debug.Log("Je place un personnage");
                     Instantiate(joueur, new Vector3(xAleatoireObtenu + i, 0.5f, yAleatoireObtenu + j), Quaternion.identity);
                 }
             }
@@ -197,13 +206,10 @@ public class GenerateurDeCarte : MonoBehaviour {
         {
             for (int j = -2; j <= 2 && nbSpawn > 0; j++)
             {
-                Debug.Log("Tentative placement personnage");
-                if (tableauterrain[new Vector2Int((int)ObjectifMission.XPos + i, (int)ObjectifMission.YPos + j)].IsFree == true)
+                if (Tableauterrain[new Vector2Int((int)ObjectifMission.XPos + i, (int)ObjectifMission.YPos + j)].IsFree == true)
                 {
-                    Debug.Log("Is free : " + tableauterrain[new Vector2Int((int)ObjectifMission.XPos + i, (int)ObjectifMission.YPos + j)].IsFree);
                     nbSpawn--;
                     JoueurSpawnPos.Add(new Vector2((int)ObjectifMission.XPos + i, (int)ObjectifMission.YPos + j));
-                    Debug.Log("Je place un personnage");
                     Instantiate(joueur, new Vector3((int)ObjectifMission.XPos + i, 0.5f, (int)ObjectifMission.YPos + j), Quaternion.identity);
                 }
             }
