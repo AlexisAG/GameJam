@@ -6,6 +6,7 @@ using UnityEngine;
 public class HUDMission : MonoBehaviour {
 
     public List<GameObject> MissionsPins;
+    public GameObject HudDetail;
 
 	// Use this for initialization
 	void Awake () {
@@ -23,6 +24,8 @@ public class HUDMission : MonoBehaviour {
 	
 	public void CheckMission(int index)
     {
-        Debug.Log(CampementData.Instance.missionsDisponible[index]);
+        HUDDetailMission.Mission = CampementData.Instance.missionsDisponible[index];
+        HudDetail.gameObject.SetActive(true);
+        HudDetail.GetComponent<HUDDetailMission>().DisplayMission();
     }
 }
