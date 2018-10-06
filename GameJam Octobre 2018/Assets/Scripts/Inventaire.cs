@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Inventaire : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Inventaire : MonoBehaviour
     public int qteBois;
     public int qteMetal;
     public int qteNourriture;
+    public List<Arme> armes = new List<Arme>();
+    public List<Armure> armures = new List<Armure>();
 
 
     // Use this for initialization

@@ -1,4 +1,6 @@
-﻿public class Forge : Batiment
+﻿using UnityEngine;
+
+public class Forge : Batiment
 {
 
     private int niveauArmesEtArmuresForgeables;
@@ -18,8 +20,8 @@
 
     public void Start()
     {
-        InitBatiment(this.GetType().ToString());
-        this.NiveauArmesEtArmuresForgeables = 1;
+        InitBatiment(GetType().ToString());
+        NiveauArmesEtArmuresForgeables = 1;
     }
 
     public override void Ameliorer()
@@ -29,13 +31,15 @@
             NiveauBatiment++;
 
             if (NiveauArmesEtArmuresForgeables < 10)
+            {
                 niveauArmesEtArmuresForgeables++;
+            }
             else
             {
                 niveauArmesEtArmuresForgeables = 10;
                 print("Niveau maximal d'armes et armures atteint");
             }
-            Nom = this.GetType().ToString() + " Niv. " + NiveauBatiment;
+            Nom = GetType().ToString() + " Niv. " + NiveauBatiment;
             ChangeRessourceUpgrade();
             PayerBatiment();
         }
@@ -43,11 +47,32 @@
 
     public override string ToString()
     {
-        return "Nom: " + this.Nom +
-            ". Niveau Batiment: " + this.NiveauBatiment +
-            ". estDispo: " + this.UpgradePossible +
-            ". Cout: " + this.CoutEnRessources +
-            ". Niveau armes et armures : " + this.NiveauArmesEtArmuresForgeables + 
+        return "Nom: " + Nom +
+            ". Niveau Batiment: " + NiveauBatiment +
+            ". estDispo: " + UpgradePossible +
+            ". Cout: " + CoutEnRessources +
+            ". Niveau armes et armures : " + NiveauArmesEtArmuresForgeables +
             ". Ressource pour upgrade : " + RessourcePourUpgrade;
+    }
+
+    public void creerArme(string _nom, string _type, int _degats)
+    {
+        Arme arme = new Arme();
+        arme.Nom = _nom;
+        arme.Type = _type;
+        arme.Degats = _degats;
+        arme.NiveauArme = Random.Range(2, 4);
+
+        Inventaire.Instance.armes.Add(arme);
+    }
+
+    public void creerArmure(string _nom, string _type, int _pvSupplementaires)
+    {
+        Armure armure = new Armure();
+        armure.Nom = _nom;
+        armure.Type = _type;
+        armure.PvSupplementaires = _pvSupplementaires;
+
+        Inventaire.Instance.armures.Add(armure);
     }
 }
