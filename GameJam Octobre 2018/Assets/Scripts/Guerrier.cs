@@ -11,7 +11,7 @@ public class Guerrier : TypeCombattant {
 
     const int degatsMin = 3;
     const int degatsMax = 6;
-    const int gainDegatsParNiveau = 6;
+    const int gainDegatsParNiveau = 1;
 
     const int pa = 2;
     const int mpa = 4;

@@ -24,7 +24,7 @@ public class Ennemi : MonoBehaviour {
     }
 
     public void AttaqueAdversaire(TypeCombattant adversaire){
-        adversaire.recoitDegats(combattant);
+        adversaire.RecoitDegats(combattant);
     }
     // Use this for initialization
     void Start () {
@@ -35,4 +35,9 @@ public class Ennemi : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public TypeCombattant GetTypeCombattant()
+    {
+        return combattant;
+    }
 }

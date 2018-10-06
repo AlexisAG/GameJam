@@ -1,23 +1,39 @@
 ﻿public class BootCamp : Batiment
 {
+    public int niveauDesCombattants;
 
-    public int niveauDesRecrues;
-    public string typeRessourcePourUpgrade;
-    public int nbRessourcesPourUpgrade;
-
-    // Use this for initialization
-    void Start()
+    private void Start()
     {
-        /*Nom = "BootCamp Niv. 1";
-        NiveauBatiment = 1;
-        niveauDesRecrues = 1;
-        UpgradePossible = Inventaire.Instance.qteBois >= nbRessourcesPourUpgrade && typeRessourcePourUpgrade == "bois" ? true : false;
-        Sprite = "";
-        Cout = 1;*/
+        InitBatiment((this.GetType().ToString()));
+        this.niveauDesCombattants = 1;
     }
 
-    /*public override void Ameliorer()
+    public override void Ameliorer()
     {
+        if (UpgradePossible == true)
+        {
+            NiveauBatiment++;
 
-    }*/
+            if (niveauDesCombattants < 10)
+                niveauDesCombattants += 1;
+            else
+            {
+                niveauDesCombattants = 10;
+                print("Niveau des combattants maximale atteint");
+            }
+            Nom = this.GetType().ToString() + " Niv. " + NiveauBatiment;
+            ChangeRessourceUpgrade();
+            PayerBatiment();
+        }
+    }
+
+    public override string ToString()
+    {
+        return "Nom: " + this.Nom +
+            ". Niveau Batiment: " + this.NiveauBatiment +
+            ". estDispo: " + this.UpgradePossible +
+            ". Cout: " + this.CoutEnRessources +
+            ". Niveau armes et armures : " + this.niveauDesCombattants +
+            ". Ressource pour upgrade : " + RessourcePourUpgrade;
+    }
 }
