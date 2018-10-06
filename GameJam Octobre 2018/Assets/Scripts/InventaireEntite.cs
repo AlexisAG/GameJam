@@ -38,7 +38,7 @@ public class InventaireEntite : MonoBehaviour
                 jambieres.PvSupplementaires = 2;
                 casque.PvSupplementaires = 2;
                 //Nom de l'arme en fonction de son niveau
-                checkNiveauArmeSniper(this.arme);
+                checkNiveauArmeCAC(this.arme);
                 arme.Type = "corps a corps";
                 break;
 
