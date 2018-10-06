@@ -7,16 +7,14 @@ using UnityEngine;
 
 public class HUDMainMenu : MonoBehaviour {
 
-    public GameObject HUDLoadGameCanvas;
-
     public void NewGameOnClick()
     {
         SceneManager.LoadScene("Campement", LoadSceneMode.Single);
     }
 
-    public void LoadGameOnClick()
+    public void LoadGameOnClick(GameObject refCanvas)
     {
-        HUDLoadGameCanvas.SetActive(true);
+        refCanvas.SetActive(true);
         this.gameObject.SetActive(false);
     }
 
