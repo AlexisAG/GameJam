@@ -146,8 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e978fccf4e554ea4f80cf24007df9252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HUDMainMenuCanvas: {fileID: 1290262350222936}
-  HUDLoadGameCanvas: {fileID: 0}
 --- !u!114 &114041831243888978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -222,10 +220,10 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 114025825168874816}
         m_MethodName: LoadGameOnClick
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

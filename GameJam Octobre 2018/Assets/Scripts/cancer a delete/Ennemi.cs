@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Save : MonoBehaviour {
+public class Ennemi : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
