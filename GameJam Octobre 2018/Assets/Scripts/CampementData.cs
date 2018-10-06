@@ -12,6 +12,7 @@ public class CampementData : MonoBehaviour {
             if (instance == null)
             {
                 instance = GameObject.FindGameObjectWithTag("CampementData").GetComponent<CampementData>();
+                
                 //Tell unity not to destroy this object when loading a new scene!
                 DontDestroyOnLoad(instance.gameObject);
                 
@@ -25,11 +26,12 @@ public class CampementData : MonoBehaviour {
 
     public int nbSurvivant;
     public bool survivantContent;
-
+    public int nbSurvivantNonOccupé;
     // Use this for initialization
     void Start () {
 
-        nbSurvivant = 2; // valeur a modifier
+        nbSurvivant = 20; // valeur a modifier
+        nbSurvivantNonOccupé = nbSurvivant;
         survivantContent = true; // valeur a modifier
         soldats = new List<Soldat>();
         missionsDisponible = new List<Mission>();

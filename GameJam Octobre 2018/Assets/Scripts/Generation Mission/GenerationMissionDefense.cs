@@ -26,7 +26,8 @@ public class GenerationMissionDefense {
         for (int i = 0; i < CampementData.Instance.soldats.Count; i++)
             lvlMoyen += (byte)CampementData.Instance.soldats[i].GetTypeCombattant().NiveauCombattant;
 
-        return (byte)(lvlMoyen / CampementData.Instance.soldats.Count);
+        //return (byte)(lvlMoyen / CampementData.Instance.soldats.Count);
+        return 0;
     }
 
     private static List<Ennemi> CreateEnnemi(byte lvl)
