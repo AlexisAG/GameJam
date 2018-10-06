@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9b73be33b273ea948b27fd919b86f022
+guid: 1c0f1cacf2ae18f45a3ba8717170b5d8
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,13 +8,13 @@ ModelImporter:
     2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cone
+    4300000: Sphere
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: No Name
-    second: {fileID: 2100000, guid: a90aaab844bf00846bb658325a56e19e, type: 2}
+    second: {fileID: 2100000, guid: 2dc3039b55f89184f956d0e7822692dc, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
