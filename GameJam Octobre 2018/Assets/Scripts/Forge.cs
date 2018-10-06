@@ -7,54 +7,47 @@
     {
         get
         {
-            return NiveauArmesEtArmuresForgeables;
+            return niveauArmesEtArmuresForgeables;
         }
 
         set
         {
-            NiveauArmesEtArmuresForgeables = value;
+            niveauArmesEtArmuresForgeables = value;
         }
     }
 
-    private void Start()
+    public void Start()
     {
-        InitBatiment(this.GetType());
-        print(this.ToString());
+        InitBatiment(this.GetType().ToString());
+        this.NiveauArmesEtArmuresForgeables = 1;
     }
 
     public override void Ameliorer()
     {
-        if (UpgradePossible)
+        if (UpgradePossible == true)
         {
             NiveauBatiment++;
-            NiveauArmesEtArmuresForgeables++;
-            Nom = "Baraquement Niv. " + NiveauBatiment;
-            Sprite = this.GetType().ToString() + "_Niv" + NiveauBatiment + ".png";
-            CoutEnRessources *= NiveauBatiment;
 
-            switch (NiveauBatiment)
+            if (NiveauArmesEtArmuresForgeables < 10)
+                niveauArmesEtArmuresForgeables++;
+            else
             {
-                case 2:
-                case 3:
-                case 4:
-                    TypeRessourcePourUpgrade = "bois";
-                    break;
-                case 5:
-                case 6:
-                case 7:
-                    TypeRessourcePourUpgrade = "pierre";
-                    break;
-                case 8:
-                case 9:
-                case 10:
-                    TypeRessourcePourUpgrade = "metal";
-                    break;
+                niveauArmesEtArmuresForgeables = 10;
+                print("Niveau maximal d'armes et armures atteint");
             }
+            Nom = this.GetType().ToString() + " Niv. " + NiveauBatiment;
+            ChangeRessourceUpgrade();
+            PayerBatiment();
         }
     }
 
     public override string ToString()
     {
-        return "Nom : " + this.Nom + ". Niveau Batiment : " + this.NiveauBatiment + "Nom : " + this.Nom + "Nom : " + this.Nom;
+        return "Nom: " + this.Nom +
+            ". Niveau Batiment: " + this.NiveauBatiment +
+            ". estDispo: " + this.UpgradePossible +
+            ". Cout: " + this.CoutEnRessources +
+            ". Niveau armes et armures : " + this.NiveauArmesEtArmuresForgeables + 
+            ". Ressource pour upgrade : " + RessourcePourUpgrade;
     }
 }

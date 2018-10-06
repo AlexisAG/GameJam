@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Inventaire : MonoBehaviour {
+public class Inventaire : MonoBehaviour
+{
 
     //singleton
     private static Inventaire instance;
@@ -12,17 +11,32 @@ public class Inventaire : MonoBehaviour {
     public int qteBois;
     public int qteMetal;
     public int qteNourriture;
+
+
     // Use this for initialization
-    void Start () {
+    public void Start()
+    {
+        qtePierre = 50;
+        qteBois = 50;
+        qteMetal = 50;
+        qteNourriture = 50;
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
 
+    }
+
+    private void Awake()
+    {
         if (instance != null && instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
 
         instance = this;
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 }
