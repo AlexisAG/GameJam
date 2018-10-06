@@ -7,16 +7,16 @@
 
     private void Start()
     {
-        Nom = "Baraquement Niv. 1";
+        /*Nom = "Baraquement Niv. 1";
         NiveauBatiment = 1;
         niveauDesRecrues = 1;
         UpgradePossible = Inventaire.Instance.qteBois >= nbRessourcesPourUpgrade && typeRessourcePourUpgrade == "bois" ? true : false;
         Sprite = "";
         Cout = 10;
-        typeRessourcePourUpgrade = "bois";
+        typeRessourcePourUpgrade = "bois";*/
     }
 
-    public override void Ameliorer()
+   /* public override void Ameliorer()
     {
         if (UpgradePossible)
         {
@@ -46,5 +46,5 @@
                     break;
             }
         }
-    }
+    }*/
 }
