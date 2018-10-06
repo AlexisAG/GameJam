@@ -12,6 +12,11 @@ public class Inventaire : MonoBehaviour {
     public int qteBois;
     public int qteMetal;
     public int qteNourriture;
+
+    public int qtePierreToAdd;
+    public int qteBoisToAdd;
+    public int qteMetalToAdd;
+    public int qteNourritureToAdd;
     // Use this for initialization
     void Start () {
 
@@ -24,6 +29,14 @@ public class Inventaire : MonoBehaviour {
 
         instance = this;
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    public void AddLastDayRessources()
+    {
+        qteBois += qteBoisToAdd;
+        qteMetal += qteMetalToAdd;
+        qteNourriture += qteNourritureToAdd;
+        qtePierre += qtePierreToAdd;
     }
 
 }

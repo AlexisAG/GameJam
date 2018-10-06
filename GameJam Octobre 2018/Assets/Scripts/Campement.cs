@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Campement : MonoBehaviour {
 
@@ -10,38 +11,61 @@ public class Campement : MonoBehaviour {
 
     public GameObject SurvivantPrefab;
     private List<GameObject> survivants;
+    public Dropdown myDropdown;
+    List<string> m_DropOptions = new List<string> ();
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
+        survivants = new List<GameObject>();
+        
+        //Add the options created in the List above
+        m_DropOptions = new List<string> ();
 
         
-        for (int i=0;i <= CampementData.Instance.nbSurvivant ; i++)
-        {
+
+        for (int i=0;i < CampementData.Instance.nbSurvivant ; i++)
+        {            
             GameObject go =Instantiate(SurvivantPrefab); //to do : pop random ?
             survivants.Add(go);
         }
+        ResetDropDownOption();
         
-    }
-
-
-    void RecolterBois(int nbSurvivantEnvoye)
-    {
 
     }
 
-    void RecolterPierre(int nbSurvivantEnvoye)
-    {
 
+    public void RecolterBois()
+    {
+        int nbSurvivantEnvoyé = EnvoyerRecolter();
+        Inventaire.Instance.qteBoisToAdd += nbSurvivantEnvoyé; //a modifier en fonction de ressource manager        
+        ResetDropDownOption();
     }
 
-    void RecolterMetal(int nbSurvivantEnvoye)
+    public void RecolterPierre()
     {
+        int nbSurvivantEnvoyé = EnvoyerRecolter();
+        Inventaire.Instance.qtePierreToAdd += nbSurvivantEnvoyé; //a modifier en fonction de ressource manager        
+        ResetDropDownOption();
+    }
 
+    public void RecolterMetal()
+    {
+        int nbSurvivantEnvoyé = EnvoyerRecolter();
+        Inventaire.Instance.qteMetalToAdd += nbSurvivantEnvoyé; //a modifier en fonction de ressource manager        
+        ResetDropDownOption();
+    }
+
+    public void RecolterNourriture()
+    {
+        int nbSurvivantEnvoyé = EnvoyerRecolter();
+        Inventaire.Instance.qteNourritureToAdd += nbSurvivantEnvoyé; //a modifier en fonction de ressource manager        
+        ResetDropDownOption();
     }
 
     void NewDay()
     {
-        if(Inventaire.Instance.qteNourriture>= CampementData.Instance.nbSurvivant)
+        Inventaire.Instance.AddLastDayRessources();
+        if (Inventaire.Instance.qteNourriture>= CampementData.Instance.nbSurvivant)
         {
             for (int i = 0; i < CampementData.Instance.nbSurvivant; i++)
             {
@@ -72,6 +96,28 @@ public class Campement : MonoBehaviour {
                 //perdu
             }
         }
+
+    }
+
+    void ResetDropDownOption()
+    {
+        myDropdown.value = 0;
+        myDropdown.ClearOptions();
+        m_DropOptions.Clear();
+        for (int i = 0; i <= CampementData.Instance.nbSurvivantNonOccupé; i++)
+        {
+            m_DropOptions.Add(i.ToString());
+        }
+        myDropdown.AddOptions(m_DropOptions);
+    }
+
+    int EnvoyerRecolter()
+    {
+        int _nbSurvivantEnvoyé = myDropdown.value;
+        CampementData.Instance.nbSurvivantNonOccupé -= _nbSurvivantEnvoyé;
+        if (CampementData.Instance.nbSurvivantNonOccupé < 0)
+            CampementData.Instance.nbSurvivantNonOccupé = 0;
+        return _nbSurvivantEnvoyé;
 
     }
 }

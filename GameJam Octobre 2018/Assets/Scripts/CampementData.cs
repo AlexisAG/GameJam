@@ -12,12 +12,14 @@ public class CampementData : MonoBehaviour {
     public List<Mission> missionsDisponible;
 
     public int nbSurvivant;
+    public int nbSurvivantNonOccupé;
     public bool survivantContent;
 
     // Use this for initialization
     void Start () {
 
-        nbSurvivant = 2; // valeur a modifier
+        nbSurvivant = 20; // valeur a modifier
+        nbSurvivantNonOccupé = nbSurvivant;
         survivantContent = true; // valeur a modifier
 
         if (instance != null && instance != this)
@@ -30,4 +32,6 @@ public class CampementData : MonoBehaviour {
         DontDestroyOnLoad(this.gameObject);
 
     }
+
+
 }
