@@ -63,24 +63,30 @@ public class AStar {
 
     public List<Vector2> CalculerTrajet()
     {
-
-        terrain = GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>();
-        while (Fini== false)
+        if(Depart.Position == Arrive.Position)
         {
-            ChercherVoisins(currentPos);
-            UpdateCurrentPos();
-            CheckIfArrived();
-        }
-
-        List<Vector2> trajet = new List<Vector2>();
-
-        while(currentPos.Predecesseur != null)
+            return new List<Vector2>();
+        } else
         {
-            trajet.Add(currentPos.Position);
-            currentPos = currentPos.Predecesseur;
-        }
+            terrain = GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>();
+            while (Fini == false)
+            {
+                ChercherVoisins(currentPos);
+                UpdateCurrentPos();
+                CheckIfArrived();
+            }
 
-        return trajet;
+            List<Vector2> trajet = new List<Vector2>();
+
+            while (currentPos.Predecesseur != null)
+            {
+                trajet.Add(currentPos.Position);
+                currentPos = currentPos.Predecesseur;
+            }
+
+            return trajet;
+        }
+        
         
     }
 
@@ -218,7 +224,6 @@ public class AStar {
 
         currentPos = nextStep;
         ouvert.Add(currentPos);
-        //Object.Instantiate<GameObject>(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Modeles/Mesh_homme.fbx"), new Vector3(currentPos.Position.x, 1, currentPos.Position.y), Quaternion.identity);
     }
 
     public void CheckIfArrived()

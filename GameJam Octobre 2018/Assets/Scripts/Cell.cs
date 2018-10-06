@@ -84,7 +84,6 @@ public class Cell {
         HCost = m_hcost;
         FCost = GCost + HCost;
         Predecesseur = m_predecesseur;
-        Object.Instantiate<GameObject>(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Modeles/Mesh_arbalete.fbx"), new Vector3(Position.x, 1, Position.y), Quaternion.identity);
     }
 
     public void UpdateFCost()
