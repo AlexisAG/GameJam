@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Campement : MonoBehaviour {
 
-    public int nbSurvivant;
-    public bool survivantContent;
+    
+
     public List<GameObject> batiments; // liste des batiment dans la scene a lier dans l'editeur
     public List<Soldat> soldats;
     public Inventaire inventaire;
@@ -16,39 +16,44 @@ public class Campement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        nbSurvivant = 2;
 
-
-        for (int i=0;i<nbSurvivant;i++)
+        
+        for (int i=0;i< CampementData.Instance.nbSurvivant ; i++)
         {
             Instantiate(SurvivantPrefab); //to do : pop random ?
         }
         
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
-        
-	}
+
 
     void RecolterBois(int nbSurvivantEnvoye)
     {
 
     }
 
+    void RecolterPierre(int nbSurvivantEnvoye)
+    {
+
+    }
+
+    void RecolterMetal(int nbSurvivantEnvoye)
+    {
+
+    }
+
     void NewDay()
     {
-        if(Inventaire.Instance.qteNourriture>=nbSurvivant)
+        if(Inventaire.Instance.qteNourriture>= CampementData.Instance.nbSurvivant)
         {
-            for (int i = 0; i < nbSurvivant; i++)
+            for (int i = 0; i < CampementData.Instance.nbSurvivant; i++)
             {
-                Inventaire.Instance.qteNourriture -= nbSurvivant;
+                Inventaire.Instance.qteNourriture -= CampementData.Instance.nbSurvivant;
+                CampementData.Instance.survivantContent = true;
             }
         }
         else
         {
-            int nourritureManquante = nbSurvivant - Inventaire.Instance.qteNourriture;
+            int nourritureManquante = CampementData.Instance.nbSurvivant - Inventaire.Instance.qteNourriture;
             Inventaire.Instance.qteNourriture = 0;
             Famine(nourritureManquante);
         }
@@ -58,8 +63,17 @@ public class Campement : MonoBehaviour {
     //perte de survivant
     void Famine(int _nourritureManquante)
     {
-        
+        if (CampementData.Instance.survivantContent)
+            CampementData.Instance.survivantContent = !CampementData.Instance.survivantContent;
 
+        else//les tuer ses ptits batard
+        {
+            CampementData.Instance.nbSurvivant -= _nourritureManquante;
+            if(CampementData.Instance.nbSurvivant <=0)
+            {
+                //perdu
+            }
+        }
 
     }
 }
