@@ -651,9 +651,9 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 9afaf9f7-f60c-467d-8c97-27b889173c98
-  projectName: GameJam Octobre 2018
-  organizationId: craine1001
+  cloudProjectId: f1a28f5b-c9b5-4eb1-bdef-1592595bd179
+  projectName: GameJam Octobre 2018 (2)
+  organizationId: uqac-groupe
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

@@ -4,25 +4,22 @@ using UnityEngine;
 
 public class Ennemi : MonoBehaviour {
 
-    private bool estEnnemi; // J'en fait quoi 
-    private int nbPaSoldat;
     private TypeCombattant combattant;
 
-    public Ennemi(TypeCombattant.nomTypeCombattant typeComb, int niveau)
+    public Ennemi(int classe, int niveau)
     {
         // Niveau set en fonction de la mission
-        nbPaSoldat = 0;
         // 1 pour Guerrier
-        if (typeComb == TypeCombattant.nomTypeCombattant.Guerrier)
+        if (classe == 0)
             combattant = new Guerrier(niveau);
         // 2 pour Assassin
-        if (typeComb == TypeCombattant.nomTypeCombattant.Assassin)
+        if (classe == 1)
             combattant = new Assassin(niveau);
         // 3 pour Sniper
-        if (typeComb == TypeCombattant.nomTypeCombattant.Sniper)
+        if (classe == 2)
             combattant = new Sniper(niveau);
         // 4 pour Eclaireur
-        if (typeComb == TypeCombattant.nomTypeCombattant.Eclaireur)
+        if (classe == 3)
             combattant = new Eclaireur(niveau);
     }
 

@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Soldat : MonoBehaviour {
+public class Soldat : MonoBehaviour
+{
 
-    private bool estEnnemi;
-    private int nbPaSoldat;
     private TypeCombattant combattant;
     private Buff buffCombattant;
 
-    public Soldat(TypeCombattant.nomTypeCombattant typeComb){
+    public Soldat(TypeCombattant.nomTypeCombattant typeComb)
+    {
         buffCombattant = new Buff();
-        nbPaSoldat = 0;
+
         if (typeComb == TypeCombattant.nomTypeCombattant.Guerrier)
             combattant = new Guerrier();
         // 2 pour Assassin
@@ -30,9 +30,11 @@ public class Soldat : MonoBehaviour {
         adversaire.recoitDegats(combattant, buffCombattant.DegatsBuffDebuff);
     }
 
-    public void CheckEtat(){
+    public void CheckEtat()
+    {
 
-        if(buffCombattant.EtatBuff.NomEtat == Etat.etatFaible){
+        if (buffCombattant.EtatBuff.NomEtat == Etat.etatFaible)
+        {
             buffCombattant.PasAssezDeNourriture();
         }
         if (buffCombattant.EtatBuff.NomEtat == Etat.etatNeutre)
@@ -44,3 +46,9 @@ public class Soldat : MonoBehaviour {
             buffCombattant.TropDeNourriture();
         }
     }
+
+    public TypeCombattant GetTypeCombattant()
+    {
+        return combattant;
+    }
+}
