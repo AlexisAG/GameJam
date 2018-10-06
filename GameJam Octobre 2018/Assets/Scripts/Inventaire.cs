@@ -25,5 +25,4 @@ public class Inventaire : MonoBehaviour {
         instance = this;
         DontDestroyOnLoad(this.gameObject);
     }
-
 }
