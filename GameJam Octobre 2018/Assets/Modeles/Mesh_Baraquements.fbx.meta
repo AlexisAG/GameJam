@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: eaa17a2e037742c4e84944f537841619
+guid: 96f1b74a00c561542a67eb7e2ee83825
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,13 +8,8 @@ ModelImporter:
     2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cylinder
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: 98f6476595a8e6a4091a03f3afca5ac0, type: 2}
+    4300000: Cube
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -45,7 +40,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.5
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importVisibility: 1

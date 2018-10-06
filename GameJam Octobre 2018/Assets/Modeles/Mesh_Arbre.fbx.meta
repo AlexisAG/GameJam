@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f3144a24818aa3b40a6601af99b45383
+guid: 989dbad67c3e3a94dab8a3a9b0dbf77e
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,13 +8,8 @@ ModelImporter:
     2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Icosphere
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: a8654274cbac8cb45a7509bb234268ef, type: 2}
+    4300000: Cone
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
