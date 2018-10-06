@@ -17,8 +17,6 @@ public class Campement : MonoBehaviour {
     void Start () {
         survivants = new List<GameObject>();
 
-        AddSoldat(TypeCombattant.nomTypeCombattant.Guerrier);
-        AddSoldat(TypeCombattant.nomTypeCombattant.Assassin);
         //Add the options created in the List above
         m_DropOptions = new List<string>();
 
@@ -135,9 +133,5 @@ public class Campement : MonoBehaviour {
 
     }
     
-    void AddSoldat(TypeCombattant.nomTypeCombattant t )
-    {
-        Soldat s = new Soldat(t);
-        CampementData.Instance.soldats.Add(s);
-    }
+    
 }

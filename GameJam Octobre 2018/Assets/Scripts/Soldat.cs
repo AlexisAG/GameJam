@@ -7,48 +7,61 @@ public class Soldat : MonoBehaviour
 
     private TypeCombattant combattant;
     public Buff buffCombattant;
+    private int experienceActuel;
+    private int experienceTotal;
 
-    public Soldat(TypeCombattant.nomTypeCombattant typeComb)
+    public Soldat(int classe)
     {
         buffCombattant = new Buff();
-
-        if (typeComb == TypeCombattant.nomTypeCombattant.Guerrier)
+        this.experienceTotal = 5000;
+        experienceActuel = 0;
+        // 0 pour Guerrier
+        if (classe == 0)
             combattant = new Guerrier();
-        // 2 pour Assassin
-        if (typeComb == TypeCombattant.nomTypeCombattant.Assassin)
+        // 1 pour Assassin
+        if (classe == 1)
             combattant = new Assassin();
-        // 3 pour Sniper
-        if (typeComb == TypeCombattant.nomTypeCombattant.Sniper)
+        // 2 pour Sniper
+        if (classe == 2)
             combattant = new Sniper();
-        // 4 pour Eclaireur
-        if (typeComb == TypeCombattant.nomTypeCombattant.Eclaireur)
+        // 3 pour Eclaireur
+        if (classe == 3)
             combattant = new Eclaireur();
     }
 
     public void AttaqueAdversaire(TypeCombattant adversaire)
     {
-        adversaire.recoitDegats(combattant, buffCombattant.DegatsBuffDebuff);
+        adversaire.RecoitDegats(GetTypeCombattant(), GetBuffCombattant().DegatsBuffDebuff);
     }
 
     public void CheckEtat()
     {
 
-        if (buffCombattant.EtatBuff.NomEtat == Etat.etatFaible)
-        {
-            buffCombattant.PasAssezDeNourriture();
-        }
-        if (buffCombattant.EtatBuff.NomEtat == Etat.etatNeutre)
-        {
-            buffCombattant.NourritureOk();
-        }
-        if (buffCombattant.EtatBuff.NomEtat == Etat.etatEnForme)
-        {
-            buffCombattant.TropDeNourriture();
-        }
     }
 
+    public void UpNiveau(){
+        experienceTotal += 1000;
+        experienceActuel = 0;
+        GetTypeCombattant().UpNiveauCombattant();
+    }
     public TypeCombattant GetTypeCombattant()
     {
         return combattant;
+    }
+
+    public Buff GetBuffCombattant()
+    {
+        return buffCombattant;
+    }
+
+    public override string ToString()
+    {
+        return "\nType : " + GetTypeCombattant().NomCombattant +
+               "\nHP : " + GetTypeCombattant().HpCombattant + "(+" + GetTypeCombattant().GainHpParNiveau +
+               ")\n Degats : " + GetTypeCombattant().DegatsCombattant + "(+" + GetTypeCombattant().GainDegatsParNiveau +
+               "\n PA : " + GetTypeCombattant().PaCombattant +
+               "\nMPA : " + GetTypeCombattant().MpaCombattant +
+               "\nRange : " + GetTypeCombattant().AttackRangeCombattant +
+               "\nNiveau : " + GetTypeCombattant().NiveauCombattant;
     }
 }
