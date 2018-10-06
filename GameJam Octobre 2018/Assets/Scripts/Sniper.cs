@@ -16,12 +16,10 @@ public class Sniper : TypeCombattant {
 	const int mpa = 7;
 	const int range = 5;
 
-	public Sniper(){
+	public Sniper(int niveau = 1){
 		this.NomCombattant = "Sniper";
-		this.HpCombattant = Random.Range(hpMin,hpMax);
-        this.HpCombattantBuffDebuff = this.HpCombattant;
-		this.DegatsCombattant = Random.Range(degatsMin,degatsMax);
-        this.DegatsCombattantBuffDebuff = this.DegatsCombattant;
+		this.HpCombattant = Random.Range(hpMin,hpMax) + niveau* gainHpParNiveau;
+		this.DegatsCombattant = Random.Range(degatsMin,degatsMax) + niveau*gainDegatsParNiveau;
 		this.PaCombattant = pa;
 		this.MpaCombattant = mpa;
 		this.AttackRangeCombattant = range;
@@ -33,8 +31,6 @@ public class Sniper : TypeCombattant {
     public override void UpNiveauCombattant()
     {
         this.NiveauCombattant++;
-        this.ExperienceActuelCombattant = 0;
-        this.ExperienceNiveauCombattant = 0;
         this.HpCombattant += gainHpParNiveau;
         this.DegatsCombattant += gainDegatsParNiveau;
     }

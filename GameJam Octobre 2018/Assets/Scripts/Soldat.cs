@@ -4,44 +4,44 @@ using UnityEngine;
 
 public class Soldat : MonoBehaviour {
 
-    private Etat etatSoldat;
     private bool estEnnemi;
-    private int niveauSoldat;
     private int nbPaSoldat;
     private TypeCombattant combattant;
+    private Buff buffCombattant;
 
-    public Soldat(int idSoldat){
-        this.niveauSoldat = 1;
-        etatSoldat = new Etat();
-        // 1 pour Guerrier
-        if(idSoldat == 1)
+    public Soldat(TypeCombattant.nomTypeCombattant typeComb){
+        buffCombattant = new Buff();
+        nbPaSoldat = 0;
+        if (typeComb == TypeCombattant.nomTypeCombattant.Guerrier)
             combattant = new Guerrier();
         // 2 pour Assassin
-        if (idSoldat == 2)
+        if (typeComb == TypeCombattant.nomTypeCombattant.Assassin)
             combattant = new Assassin();
         // 3 pour Sniper
-        if (idSoldat == 3)
+        if (typeComb == TypeCombattant.nomTypeCombattant.Sniper)
             combattant = new Sniper();
         // 4 pour Eclaireur
-        if (idSoldat == 4)
+        if (typeComb == TypeCombattant.nomTypeCombattant.Eclaireur)
             combattant = new Eclaireur();
+    }
+
+    public void AttaqueAdversaire(TypeCombattant adversaire)
+    {
+        adversaire.recoitDegats(combattant, buffCombattant.DegatsBuffDebuff);
     }
 
     public void CheckEtat(){
 
-        if(this.etatSoldat.NomEtat == Etat.etatFaible){
-            combattant.PasAssezDeNourriture();
-            etatSoldat.PasAssezDeNourriture();
+        if(buffCombattant.EtatBuff.NomEtat == Etat.etatFaible){
+            buffCombattant.PasAssezDeNourriture();
         }
-        if (this.etatSoldat.NomEtat == Etat.etatNeutre)
+        if (buffCombattant.EtatBuff.NomEtat == Etat.etatNeutre)
         {
-            combattant.NourritureOk();
-            etatSoldat.NourritureOk();
+            buffCombattant.NourritureOk();
         }
-        if (this.etatSoldat.NomEtat == Etat.etatEnForme)
+        if (buffCombattant.EtatBuff.NomEtat == Etat.etatEnForme)
         {
-            combattant.TropDeNourriture();
-            etatSoldat.TropDeNourriture();
+            buffCombattant.TropDeNourriture();
         }
     }
 	// Use this for initialization

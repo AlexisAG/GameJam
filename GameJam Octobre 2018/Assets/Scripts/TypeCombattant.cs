@@ -4,37 +4,23 @@ using UnityEngine;
 
 public abstract class TypeCombattant : MonoBehaviour {
 
+    public enum nomTypeCombattant { Guerrier, Assassin, Sniper, Eclaireur }
     private string nomCombattant;
     private int hpCombattant;
-    private int hpCombattantBuffDebuff;
+    private int degatsCombattant;
     private int paCombattant;
     private int mpaCombattant;
-    private int degatsCombattant;
-    private int degatsCombattantBuffDebuff;
     private int attackRangeCombattant;
     private List<Competence> lesCompetences;
-    private int experienceActuelCombattant;
-    private int experienceNiveauCombattant;
     private int niveauCombattant;
-    
-    public void PasAssezDeNourriture(){
-        this.DegatsCombattantBuffDebuff = this.DegatsCombattant - 1;
-        this.HpCombattantBuffDebuff = this.HpCombattant - 2;
-    }
 
-    public void TropDeNourriture()
-    {
-        this.DegatsCombattantBuffDebuff = this.DegatsCombattant + 1;
-        this.HpCombattantBuffDebuff = this.HpCombattant + 2;
+    public void recoitDegats(TypeCombattant adversaire, int degatsBuff = 0){
+        this.HpCombattant -= adversaire.DegatsCombattant + degatsBuff;
+        if(HpCombattant <=0){
+            // Faut le faire mourrir
+        }
     }
-
-    public void NourritureOk()
-    {
-        this.DegatsCombattantBuffDebuff = this.DegatsCombattant;
-        this.HpCombattantBuffDebuff = this.HpCombattant;
-    }
-    public abstract void UpNiveauCombattant();
-    protected string NomCombattant
+    public string NomCombattant
     {
         get
         {
@@ -47,7 +33,7 @@ public abstract class TypeCombattant : MonoBehaviour {
         }
     }
 
-    protected int HpCombattant
+    public int HpCombattant
     {
         get
         {
@@ -60,33 +46,7 @@ public abstract class TypeCombattant : MonoBehaviour {
         }
     }
 
-    protected int PaCombattant
-    {
-        get
-        {
-            return paCombattant;
-        }
-
-        set
-        {
-            paCombattant = value;
-        }
-    }
-
-    protected int MpaCombattant
-    {
-        get
-        {
-            return mpaCombattant;
-        }
-
-        set
-        {
-            mpaCombattant = value;
-        }
-    }
-
-    protected int DegatsCombattant
+    public int DegatsCombattant
     {
         get
         {
@@ -99,7 +59,33 @@ public abstract class TypeCombattant : MonoBehaviour {
         }
     }
 
-    protected int AttackRangeCombattant
+    public int PaCombattant
+    {
+        get
+        {
+            return paCombattant;
+        }
+
+        set
+        {
+            paCombattant = value;
+        }
+    }
+
+    public int MpaCombattant
+    {
+        get
+        {
+            return mpaCombattant;
+        }
+
+        set
+        {
+            mpaCombattant = value;
+        }
+    }
+
+    public int AttackRangeCombattant
     {
         get
         {
@@ -112,7 +98,7 @@ public abstract class TypeCombattant : MonoBehaviour {
         }
     }
 
-    protected List<Competence> LesCompetences
+    public List<Competence> LesCompetences
     {
         get
         {
@@ -125,7 +111,7 @@ public abstract class TypeCombattant : MonoBehaviour {
         }
     }
 
-    protected int ExperienceActuelCombattant
+    public int ExperienceActuelCombattant
     {
         get
         {
@@ -138,7 +124,7 @@ public abstract class TypeCombattant : MonoBehaviour {
         }
     }
 
-    protected int ExperienceNiveauCombattant
+    public int ExperienceNiveauCombattant
     {
         get
         {
@@ -164,29 +150,6 @@ public abstract class TypeCombattant : MonoBehaviour {
         }
     }
 
-    public int DegatsCombattantBuffDebuff
-    {
-        get
-        {
-            return degatsCombattantBuffDebuff;
-        }
+    public abstract void UpNiveauCombattant();
 
-        set
-        {
-            degatsCombattantBuffDebuff = value;
-        }
-    }
-
-    public int HpCombattantBuffDebuff
-    {
-        get
-        {
-            return hpCombattantBuffDebuff;
-        }
-
-        set
-        {
-            hpCombattantBuffDebuff = value;
-        }
-    }
 }

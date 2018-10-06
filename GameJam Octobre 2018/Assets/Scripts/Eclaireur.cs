@@ -16,12 +16,10 @@ public class Eclaireur : TypeCombattant {
     const int mpa = 7;
     const int range = 1;
 
-    public Eclaireur(){
+    public Eclaireur(int niveau = 1){
         this.NomCombattant = "Eclaireur";
-        this.HpCombattant = Random.Range(hpMin, hpMax);
-        this.HpCombattantBuffDebuff = this.HpCombattant;
-        this.DegatsCombattant = Random.Range(degatsMin, degatsMax);
-        this.DegatsCombattantBuffDebuff = this.DegatsCombattant;
+        this.HpCombattant = Random.Range(hpMin, hpMax) + niveau * gainHpParNiveau;
+        this.DegatsCombattant = Random.Range(degatsMin, degatsMax) + niveau * gainDegatsParNiveau;
         this.PaCombattant = pa;
         this.MpaCombattant = mpa;
         this.AttackRangeCombattant = range;
@@ -33,8 +31,6 @@ public class Eclaireur : TypeCombattant {
     public override void UpNiveauCombattant()
     {
         this.NiveauCombattant++;
-        this.ExperienceActuelCombattant = 0;
-        this.ExperienceNiveauCombattant = 0;
         this.HpCombattant += gainHpParNiveau;
         this.DegatsCombattant += gainDegatsParNiveau;
     }
