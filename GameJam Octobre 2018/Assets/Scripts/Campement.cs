@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class Campement : MonoBehaviour {
 
     
@@ -12,25 +11,23 @@ public class Campement : MonoBehaviour {
     public GameObject SurvivantPrefab;
     private List<GameObject> survivants;
     public Dropdown myDropdown;
-    List<string> m_DropOptions = new List<string> ();
+    List<string> m_DropOptions = new List<string>();
 
     // Use this for initialization
     void Start () {
         survivants = new List<GameObject>();
-        
+
+        AddSoldat(TypeCombattant.nomTypeCombattant.Guerrier);
+        AddSoldat(TypeCombattant.nomTypeCombattant.Assassin);
         //Add the options created in the List above
-        m_DropOptions = new List<string> ();
+        m_DropOptions = new List<string>();
 
-        
-
-        for (int i=0;i < CampementData.Instance.nbSurvivant ; i++)
-        {            
+        for (int i=0;i <= CampementData.Instance.nbSurvivant ; i++)
+        {
             GameObject go =Instantiate(SurvivantPrefab); //to do : pop random ?
             survivants.Add(go);
         }
         ResetDropDownOption();
-        
-
     }
 
 
@@ -65,18 +62,32 @@ public class Campement : MonoBehaviour {
     public void NewDay()
     {
         Inventaire.Instance.AddLastDayRessources();
-       
-
-
-        if (Inventaire.Instance.qteNourriture>= CampementData.Instance.nbSurvivant)
+        int qteNourritureBesoin = CampementData.Instance.nbSurvivant + CampementData.Instance.soldats.Count * 4;
+        int qteNourritureFestin = CampementData.Instance.nbSurvivant + CampementData.Instance.soldats.Count * 6;
+        if (Inventaire.Instance.qteNourriture >= qteNourritureBesoin)
         {
-            Inventaire.Instance.qteNourriture -= CampementData.Instance.nbSurvivant;
+            if (Inventaire.Instance.qteNourriture >= qteNourritureFestin)
+            {
+                Inventaire.Instance.qteNourriture -= qteNourritureFestin;
+                foreach(Soldat s in CampementData.Instance.soldats )
+                    s.buffCombattant.TropDeNourriture();
+            }
+            else
+            {
+                Inventaire.Instance.qteNourriture -= qteNourritureBesoin;
+                foreach (Soldat s in CampementData.Instance.soldats)
+                    s.buffCombattant.NourritureOk();
+            }
+                
             CampementData.Instance.survivantContent = true;
+
         }
         else
         {
-            int nourritureManquante = CampementData.Instance.nbSurvivant - Inventaire.Instance.qteNourriture;
+            int nourritureManquante = CampementData.Instance.nbSurvivant - qteNourritureBesoin;
             Inventaire.Instance.qteNourriture = 0;
+            foreach (Soldat s in CampementData.Instance.soldats)
+                s.buffCombattant.PasAssezDeNourriture();
             Famine(nourritureManquante);
         }
 
@@ -122,5 +133,11 @@ public class Campement : MonoBehaviour {
             CampementData.Instance.nbSurvivantNonOccupé = 0;
         return _nbSurvivantEnvoyé;
 
+    }
+    
+    void AddSoldat(TypeCombattant.nomTypeCombattant t )
+    {
+        Soldat s = new Soldat(t);
+        CampementData.Instance.soldats.Add(s);
     }
 }
