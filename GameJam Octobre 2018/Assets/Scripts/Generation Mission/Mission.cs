@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mission {
+public class Mission : ScriptableObject {
 
 	public enum TypeMission : byte { Defense, Survivant, Recherche };
 
@@ -10,18 +10,20 @@ public class Mission {
     private byte p_nbObjectif, p_lvlMission;
     private int p_gainMission;
     private string p_nomMission;
-    private Vector2Int p_positionMapMission;
+    private Vector3 p_positionMapMission;
 
     public List<Ennemi> Ennemis = new List<Ennemi>();
     public List<Soldat> Soldats = new List<Soldat>();
 
-    public Mission (TypeMission typeObjectif, byte nbObjectif, byte lvlMission, int gain, string nom, Vector2Int positionMapMission)
+    public Mission (TypeMission typeObjectif, byte nbObjectif, byte lvlMission, int gain, string nom, Vector3 positionMapMission)
     {
         p_typeObjectif = typeObjectif;
         p_nbObjectif = nbObjectif;
         p_gainMission = gain;
         p_nomMission = nom;
         p_lvlMission = lvlMission;
+        p_positionMapMission = positionMapMission;
+
     }
 
     /* ACCESSEUR */
@@ -49,14 +51,19 @@ public class Mission {
         return p_nomMission;
     }
 
-    public Vector2Int GetPositionOnMap ()
+    public Vector3 GetPositionOnMap ()
     {
         return p_positionMapMission;
     }
 
-    public void SetNewPositionOnMap (Vector2Int pos)
+    public void SetNewPositionOnMap (Vector3 pos)
     {
         if (p_typeObjectif == TypeMission.Defense)
         p_positionMapMission = pos;
+    }
+
+    public override string ToString()
+    {
+        return p_nomMission + " " + p_lvlMission;
     }
 }
