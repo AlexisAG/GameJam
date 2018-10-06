@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Buff : MonoBehaviour {
-
+    //dzdq
     private Etat etatBuff;
     private int hpBuffDebuff;
     private int degatsBuffDebuff;
