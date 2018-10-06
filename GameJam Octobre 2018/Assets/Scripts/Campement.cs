@@ -7,9 +7,6 @@ public class Campement : MonoBehaviour {
     
 
     public List<GameObject> batiments; // liste des batiment dans la scene a lier dans l'editeur
-    public List<Soldat> soldats;
-    public Inventaire inventaire;
-    public List<Mission> missionsDisponible;
 
     public GameObject SurvivantPrefab;
     private List<GameObject> survivants;
@@ -18,9 +15,10 @@ public class Campement : MonoBehaviour {
 	void Start () {
 
         
-        for (int i=0;i< CampementData.Instance.nbSurvivant ; i++)
+        for (int i=0;i <= CampementData.Instance.nbSurvivant ; i++)
         {
-            Instantiate(SurvivantPrefab); //to do : pop random ?
+            GameObject go =Instantiate(SurvivantPrefab); //to do : pop random ?
+            survivants.Add(go);
         }
         
     }
