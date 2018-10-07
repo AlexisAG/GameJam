@@ -58,7 +58,6 @@ GameObject:
   - component: {fileID: 23950484942847824}
   - component: {fileID: 114029598644988902}
   - component: {fileID: 114720813216336832}
-  - component: {fileID: 114256032933452712}
   m_Layer: 0
   m_Name: Guerrier IA
   m_TagString: Untagged
@@ -317,18 +316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c242ebb239866fb4a97c7ce5011bf63a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114256032933452712
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1852936448307216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3294974e7a4bf9c48bb079ee2326abe0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  combattant: {fileID: 114029598644988902}
 --- !u!114 &114383727678827388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -353,14 +340,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monTour: 0
   unJoueurControle: 0
-  statSoldat: {fileID: 0}
-  statEnnemi: {fileID: 114256032933452712}
+  nomDuTypeDeCombattant: 0
   statCombatant: {fileID: 0}
   road: {fileID: 1133904836506458, guid: 732e718c8662a77429f2c665f46d6b57, type: 2}
   ping: {fileID: 100000, guid: 38a499b2bfa53f4458b6ae8c2840da7d, type: 3}
   trajetObject: []
   startObjectPos: {fileID: 0}
   endObjectPos: {fileID: 0}
+  generateurDeCarte: {fileID: 114207791571449226, guid: 504ffb8461db0a349a09ac1ae5938d31,
+    type: 2}
   trajet: []
   coutTrajet: 0
   paDispo: 0
