@@ -26,7 +26,6 @@ public class MouvementPersonnage : MonoBehaviour {
 
 
     public GameObject road;
-    public GameObject roadGood;
     public GameObject ping;
 
 
@@ -132,50 +131,39 @@ public class MouvementPersonnage : MonoBehaviour {
         {
             if(!unJoueurControle )
             {
-                //FinDeTour();
-                if(!enTrajet && paDispo > 0)
-                {
-                    ObtenirEntiteProche();
-                    AllerSurEntite();
-                }
-
-                if (!enTrajet && paDispo <= 0)
-                {
-                    GameObject.Find("CombatManager").GetComponent<CombatManager>().changementTour();
-                }
-
-                if (enTrajet)
-                {
-                    SuivreChemin();
-
-                } 
-            } else
-            {
-                if (Input.GetMouseButtonDown(1) && !enTrajet)
-                {
-                    PositionStart = new Vector2(Mathf.Floor(this.transform.position.x + 0.5f), Mathf.Floor(this.transform.position.z + 0.5f));
-                    GameObject.Destroy(endObjectPos);
-                    Debug.Log(PositionEnd);
-                    ShowTrajet(true);
-
-                }
-
-                if (Input.GetMouseButtonDown(0) && !enTrajet)
-                {
-                    PositionStart = new Vector2(Mathf.Floor(this.transform.position.x + 0.5f), Mathf.Floor(this.transform.position.z + 0.5f));
-                    GameObject.Destroy(endObjectPos);
-                    Debug.Log(PositionEnd);
-                    ShowTrajet(false);
-
-                }
-
-                if (enTrajet)
-                {
-                    SuivreChemin();
-
-                }
+                FinDeTour();
+                /*ObtenirEntiteProche();
+                AllerSurEntite();
+                GameObject.Find("CombatManager").GetComponent<CombatManager>().changementTour();*/
             }
-            
+            if(!enTrajet && paDispo <= 0)
+            {
+                FinDeTour();
+                GameObject.Find("CombatManager").GetComponent<CombatManager>().changementTour();
+            }
+            if (Input.GetMouseButtonDown(1) && !enTrajet)
+            {
+                PositionStart = new Vector2(Mathf.Floor(this.transform.position.x + 0.5f), Mathf.Floor(this.transform.position.z + 0.5f));
+                GameObject.Destroy(endObjectPos);
+                Debug.Log(PositionEnd);
+                ShowTrajet(true);
+                
+            }
+
+            if (Input.GetMouseButtonDown(0) && !enTrajet)
+            {
+                PositionStart = new Vector2(Mathf.Floor(this.transform.position.x + 0.5f), Mathf.Floor(this.transform.position.z + 0.5f));
+                GameObject.Destroy(endObjectPos);
+                Debug.Log(PositionEnd);
+                ShowTrajet(false);
+
+            }
+
+            if (enTrajet)
+            {
+                SuivreChemin();
+
+            }
 
         }
         
@@ -209,43 +197,22 @@ public class MouvementPersonnage : MonoBehaviour {
         gestionnaireTrajet.ResetAStar(PositionStart, PositionEnd);
         List<Vector2> results = gestionnaireTrajet.CalculerTrajet();
         Debug.Log("temps AStar : " + (Time.realtimeSinceStartup - now) + " Secondes ");
-        bool BonChemin = false;
-        int maxMouvement = paDispo * statCombatant.MpaCombattant;
-        if(results.Count <= maxMouvement)
-        {
-            BonChemin = true;
-        }
         for (int i = results.Count-1; i >= 0 ; i--)
         {
             if (i + 1 != results.Count)
             {
                 if (results[i + 1].x == results[i].x)
                 {
-                    if(BonChemin)
-                    {
-                        trajetObject.Add(Instantiate(roadGood, new Vector3(results[i].x + (results[i + 1].x - results[i].x) / 2, 0.5f, results[i].y + (results[i + 1].y - results[i].y) / 2), Quaternion.Euler(0, 90, 0)));
-                    } else
-                    {
-                        trajetObject.Add(Instantiate(road, new Vector3(results[i].x + (results[i + 1].x - results[i].x) / 2, 0.5f, results[i].y + (results[i + 1].y - results[i].y) / 2), Quaternion.Euler(0, 90, 0)));
-                    }
-                    
+                    trajetObject.Add(Instantiate(road, new Vector3(results[i].x + (results[i + 1].x - results[i].x) / 2, 0.5f, results[i].y + (results[i + 1].y - results[i].y) / 2), Quaternion.Euler(0, 90, 0)));
                 }
                 else if (results[i + 1].y == results[i].y)
                 {
-                    if (BonChemin)
-                    {
-                        trajetObject.Add(Instantiate(roadGood, new Vector3(results[i].x + (results[i + 1].x - results[i].x) / 2, 0.5f, results[i].y + (results[i + 1].y - results[i].y) / 2), Quaternion.identity));
-                    }
-                    else
-                    {
-                        trajetObject.Add(Instantiate(road, new Vector3(results[i].x + (results[i + 1].x - results[i].x) / 2, 0.5f, results[i].y + (results[i + 1].y - results[i].y) / 2), Quaternion.identity));
-                    }
-                    
+                    trajetObject.Add(Instantiate(road, new Vector3(results[i].x + (results[i + 1].x - results[i].x) / 2, 0.5f, results[i].y + (results[i + 1].y - results[i].y) / 2), Quaternion.identity));
                 }
             }
         }
         coutTrajet = results.Count;
-        int coutEnPa = Mathf.CeilToInt((float)coutTrajet / (float)statCombatant.MpaCombattant);
+        int coutEnPa = Mathf.FloorToInt(coutTrajet / statCombatant.MpaCombattant);
         if (FaireChemin)
         {
             if (paDispo >= coutEnPa)
@@ -321,7 +288,6 @@ public class MouvementPersonnage : MonoBehaviour {
                                 TypeCombattant ennemy = generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].EnnemyDessus.GetComponent<MouvementPersonnage>().statCombatant;
                                 Debug.Log("Avant : Vie enemy : " + ennemy.HpCombattant);
                                 StatSoldat.AttaqueAdversaire(ennemy);
-                                UiMessage = statCombatant.DegatsCombattant + " dégats infligés. " + ennemy.HpCombattant + " hp restants.";
                                 if (ennemy.HpCombattant <= 0)
                                 {
                                     Debug.LogWarning(GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.Count);
@@ -551,61 +517,29 @@ public class MouvementPersonnage : MonoBehaviour {
 
     private void AllerSurEntite()
     {
-        
-        if(CheckSiVoisin(new Vector2Int((int)EnnemiFocus.GetComponent<MouvementPersonnage>().PositionStart.x, (int)EnnemiFocus.GetComponent<MouvementPersonnage>().PositionStart.y)))
+        gestionnaireTrajet.ResetAStar(PositionStart, ChercherPositionVoisine());
+        List<Vector2> results = gestionnaireTrajet.CalculerTrajet();
+
+        if(results.Count < statCombatant.MpaCombattant*paDispo)
         {
-            LancerAttaque();
+            int coutEnPa = Mathf.FloorToInt(results.Count/ statCombatant.MpaCombattant);
+            paDispo -= coutEnPa;
+            trajet.Add(PositionEnd);
+            trajet.AddRange(results);
+            enTrajet = true;
+            isCalculating = false;
         } else
         {
-            gestionnaireTrajet.ResetAStar(PositionStart, ChercherPositionVoisine());
-            List<Vector2> results = gestionnaireTrajet.CalculerTrajet();
-
-            if (results.Count < statCombatant.MpaCombattant * paDispo)
-            {
-                int coutEnPa = Mathf.CeilToInt((float)results.Count / (float)statCombatant.MpaCombattant);
-                paDispo -= coutEnPa;
-                //trajet.Add(PositionEnd);
-                trajet.AddRange(results);
-                enTrajet = true;
-                isCalculating = false;
-            }
-            else
-            {
-                int nbCaseMax = statCombatant.MpaCombattant * paDispo;
-                paDispo = 0;
-                List<Vector2> tempTarjet = new List<Vector2>();
-                //tempTarjet.Add(positionEnd);
-                tempTarjet.AddRange(results);
-                trajet = tempTarjet.Skip(tempTarjet.Count - nbCaseMax).Take(nbCaseMax).ToList<Vector2>();
-                enTrajet = true;
-                isCalculating = false;
-
-            }
-        }
-        
-    }
-
-    private void LancerAttaque()
-    {
-        if(paDispo >= 1)
-        {
+            int nbCaseMax = statCombatant.MpaCombattant * paDispo;
+            paDispo = 0;
+            List<Vector2> tempTarjet = new List<Vector2>();
+            tempTarjet.Add(positionEnd);
+            tempTarjet.AddRange(results);
+            trajet = tempTarjet.Skip(tempTarjet.Count - nbCaseMax).Take(nbCaseMax).ToList<Vector2>();
+            enTrajet = true;
+            isCalculating = false;
             
-            StatEnnemi.AttaqueAdversaire(EnnemiFocus.GetComponent<MouvementPersonnage>().statCombatant);
-            UiMessage = statCombatant.DegatsCombattant + " dégats reçus. " + EnnemiFocus.GetComponent<MouvementPersonnage>().statCombatant.HpCombattant + " hp restants.";
-            if (EnnemiFocus.GetComponent<MouvementPersonnage>().statCombatant.HpCombattant <= 0)
-            {
-                Debug.LogWarning(GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.Count);
-                CampementData.Instance.soldats.RemoveAt(CampementData.Instance.soldats.IndexOf(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)EnnemiFocus.GetComponent<MouvementPersonnage>().PositionStart.x, (int)EnnemiFocus.GetComponent<MouvementPersonnage>().PositionStart.y)].SoldatDessus.GetComponent<MouvementPersonnage>().statSoldat));
-                GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.RemoveAt(GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.IndexOf(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)EnnemiFocus.GetComponent<MouvementPersonnage>().PositionStart.x, (int)EnnemiFocus.GetComponent<MouvementPersonnage>().PositionStart.y)].SoldatDessus));
-                generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)EnnemiFocus.GetComponent<MouvementPersonnage>().PositionStart.x, (int)EnnemiFocus.GetComponent<MouvementPersonnage>().PositionStart.y)].IsFree = true;
-                GameObject.Destroy(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)EnnemiFocus.GetComponent<MouvementPersonnage>().PositionStart.x, (int)EnnemiFocus.GetComponent<MouvementPersonnage>().PositionStart.y)].SoldatDessus);
-                ObtenirEntiteProche();
-                Debug.LogWarning(GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.Count);
-            }
-            --paDispo;
         }
-        
-        
     }
 
 

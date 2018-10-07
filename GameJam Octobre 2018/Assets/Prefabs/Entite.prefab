@@ -81,22 +81,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1801672928844010
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4752454780645676}
-  - component: {fileID: 108131385763511404}
-  m_Layer: 0
-  m_Name: Point Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &4213037442045300
 Transform:
   m_ObjectHideFlags: 1
@@ -116,14 +100,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332136491039598}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 834.06476, y: 251.03265, z: 21.036394}
+  m_LocalRotation: {x: 0.7071067, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 13.692161, y: 25.432234, z: 24.204905}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 4993883198543364}
   - {fileID: 4213037442045300}
   - {fileID: 4642437514776184}
-  - {fileID: 4752454780645676}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -139,19 +122,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4401615536307540}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4752454780645676
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1801672928844010}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01706, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_Children: []
-  m_Father: {fileID: 4401615536307540}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4993883198543364
 Transform:
@@ -334,43 +304,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1652205575511394}
   m_Mesh: {fileID: 4300000, guid: 38a499b2bfa53f4458b6ae8c2840da7d, type: 3}
---- !u!108 &108131385763511404
-Light:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1801672928844010}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 2
-  m_Color: {r: 0, g: 1, b: 0.76493406, a: 1}
-  m_Intensity: 0
-  m_Range: 1.25
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 4
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
 --- !u!114 &114258788320445114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -387,7 +320,6 @@ MonoBehaviour:
   nomDuTypeDeCombattant: 0
   statCombatant: {fileID: 0}
   road: {fileID: 1133904836506458, guid: 732e718c8662a77429f2c665f46d6b57, type: 2}
-  roadGood: {fileID: 1371057214985288, guid: dc0913e4d19570940b492d0419d7ea60, type: 2}
   ping: {fileID: 100000, guid: 38a499b2bfa53f4458b6ae8c2840da7d, type: 3}
   trajetObject: []
   startObjectPos: {fileID: 0}
