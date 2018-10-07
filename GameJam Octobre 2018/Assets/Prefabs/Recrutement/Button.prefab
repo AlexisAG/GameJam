@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemTemplate: {fileID: 0}
-  fontMessage: {fileID: 0}
+  fontMessage: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   content: {fileID: 0}
   prefabBut: {fileID: 0}
   scrollBack: {fileID: 0}

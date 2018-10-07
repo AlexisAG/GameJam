@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Environnement : MonoBehaviour {
 
-    string saisonCourante;
-    int joursPasses;
-    int joursPassesDansLaSaison;
+    public string saisonCourante;
+    public int joursPasses;
+    public int joursPassesDansLaSaison;
     const int SEUIL_CHANGEMENT_SAISON = 10;
 
     public string SaisonCourante
@@ -35,7 +35,7 @@ public class Environnement : MonoBehaviour {
         }
     }
     private static Environnement instance;
-    public static Environnement Instance { get; set; }
+    public static Environnement Instance { get { return instance; }  }
 
     public int JoursPassesDansLaSaison
     {
@@ -69,17 +69,17 @@ public class Environnement : MonoBehaviour {
         
     }
 
-    void UpdateEnvironnement()
+    public void UpdateEnvironnement()
     {
         JoursPasses++;
         JoursPassesDansLaSaison++;
 
-        if (saisonCourante == "Ete" && joursPasses >= SEUIL_CHANGEMENT_SAISON)
+        if (saisonCourante == "Ete" && JoursPassesDansLaSaison >= SEUIL_CHANGEMENT_SAISON)
         {
             SaisonCourante = "Hiver";
             JoursPassesDansLaSaison = 0;
         }
-        else if (saisonCourante == "Hiver" && JoursPasses >= SEUIL_CHANGEMENT_SAISON)
+        else if (saisonCourante == "Hiver" && JoursPassesDansLaSaison >= SEUIL_CHANGEMENT_SAISON)
         {
             SaisonCourante = "Ete";
             JoursPassesDansLaSaison = 0;

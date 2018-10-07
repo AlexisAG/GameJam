@@ -26,6 +26,7 @@ public class CampementData : MonoBehaviour {
 
     public int nbSurvivant;
     public bool survivantContent;
+    public bool partiEnMission;
     public int nbSurvivantNonOccupé;
     // Use this for initialization
     void Start () {
