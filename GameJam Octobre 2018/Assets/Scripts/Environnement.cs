@@ -75,7 +75,6 @@ public class Environnement : MonoBehaviour {
         JoursPasses++;
         JoursPassesDansLaSaison++;
 
-<<<<<<< HEAD
         CampementData.Instance.missionsDisponible.Where(mission => mission.GetTypeObjectif() == Mission.TypeMission.Defense).ToList<Mission>().ForEach(defense =>
        {
            defense.SetNewPositionOnMap(defense.GetPositionOnMap() + 0.8f * (new Vector3(0, 0, 0) - defense.GetPositionOnMap()));
@@ -91,18 +90,11 @@ public class Environnement : MonoBehaviour {
        });
 
         if (saisonCourante == "Ete" && JoursPassesDansLaSaison >= SEUIL_CHANGEMENT_SAISON)
-=======
-        if (saisonCourante == "Ete" && JoursPassesDansLaSaison >= seuilSaison())
->>>>>>> origin/Flotest
         {
             SaisonCourante = "Hiver";
             JoursPassesDansLaSaison = 0;
         }
-<<<<<<< HEAD
         else if (saisonCourante == "Hiver" && JoursPassesDansLaSaison >= SEUIL_CHANGEMENT_SAISON)
-=======
-        else if (saisonCourante == "Hiver" && JoursPassesDansLaSaison >= seuilSaison())
->>>>>>> origin/Flotest
         {
             SaisonCourante = "Ete";
             JoursPassesDansLaSaison = 0;

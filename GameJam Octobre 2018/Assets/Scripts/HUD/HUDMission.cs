@@ -6,20 +6,21 @@ using UnityEngine;
 public class HUDMission : MonoBehaviour {
 
     public List<GameObject> MissionsPins;
+    public GameObject HudDetail;
 
 	// Use this for initialization
 	void Awake () {
 
-        GenerationMissionDefense.GenerateMission();
-
         for (int i = 0; i < MissionsPins.Count; i++)
-            MissionsPins[i].transform.position = CampementData.Instance.missionsDisponible[i].GetPositionOnMap();
+            MissionsPins[i].transform.localPosition = CampementData.Instance.missionsDisponible[i].GetPositionOnMap();
                     
     }
 	
 	public void CheckMission(int index)
     {
-        Debug.Log(CampementData.Instance.missionsDisponible[index]);
+        HUDDetailMission.Mission = CampementData.Instance.missionsDisponible[index];
+        HudDetail.gameObject.SetActive(true);
+        HudDetail.GetComponent<HUDDetailMission>().DisplayMission();
     }
 
     public void GoBack()

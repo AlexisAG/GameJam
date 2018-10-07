@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HUDAffichageSoldats : MonoBehaviour {
+public class Batiment : MonoBehaviour {
 
-    // Use this for initialization
-    void Start () {
-
-    }
+	// Use this for initialization
+	void Start () {
+		
+	}
 	
 	// Update is called once per frame
 	void Update () {

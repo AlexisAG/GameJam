@@ -1,53 +1,50 @@
 ﻿public class Baraquement : Batiment
 {
 
-    private int niveauDesNouvellesRecrues;
-
-    public int NiveauDesNouvellesRecrues
-    {
-        get
-        {
-            return niveauDesNouvellesRecrues;
-        }
-
-        set
-        {
-            niveauDesNouvellesRecrues = value;
-        }
-    }
+    public int niveauDesRecrues;
+    public string typeRessourcePourUpgrade;
+    public int nbRessourcesPourUpgrade;
 
     private void Start()
     {
-        InitBatiment((GetType().ToString()));
-        this.NiveauDesNouvellesRecrues = 1;
+        /*Nom = "Baraquement Niv. 1";
+        NiveauBatiment = 1;
+        niveauDesRecrues = 1;
+        UpgradePossible = Inventaire.Instance.qteBois >= nbRessourcesPourUpgrade && typeRessourcePourUpgrade == "bois" ? true : false;
+        Sprite = "";
+        Cout = 10;
+        typeRessourcePourUpgrade = "bois";*/
     }
 
-    public override void Ameliorer()
+   /* public override void Ameliorer()
     {
-        if (UpgradePossible == true)
+        if (UpgradePossible)
         {
             NiveauBatiment++;
+            niveauDesRecrues++;
+            Nom = "Baraquement Niv. " + NiveauBatiment;
+            Sprite = "" + NiveauBatiment + ".png";
+            Cout++;
+            nbRessourcesPourUpgrade *= NiveauBatiment;
 
-            if (NiveauDesNouvellesRecrues < 10)
-                NiveauDesNouvellesRecrues += 1;
-            else
+            switch (NiveauBatiment)
             {
-                NiveauDesNouvellesRecrues = 10;
-                print("Niveau des nouvelles recrues maximal atteint");
+                case 2:
+                case 3:
+                case 4:
+                    typeRessourcePourUpgrade = "bois";
+                    break;
+                case 5:
+                case 6:
+                case 7:
+                    typeRessourcePourUpgrade = "pierre";
+                    break;
+                case 8:
+                case 9:
+                case 10:
+                    typeRessourcePourUpgrade = "metal";
+                    break;
             }
-            Nom = this.GetType().ToString() + " Niv. " + NiveauBatiment;
-            ChangeRessourceUpgrade();
-            PayerBatiment();
         }
-    }
-
-    public override string ToString()
-    {
-        return "Nom: " + this.Nom +
-            ". Niveau Batiment: " + this.NiveauBatiment +
-            ". estDispo: " + this.UpgradePossible +
-            ". Cout: " + this.CoutEnRessources +
-            ". Niveau armes et armures : " + this.NiveauDesNouvellesRecrues +
-            ". Ressource pour upgrade : " + RessourcePourUpgrade;
-    }
+    }*/
 }

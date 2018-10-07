@@ -13,7 +13,6 @@ public class Inventaire : MonoBehaviour {
             if (instance == null)
             {
                 instance = GameObject.FindGameObjectWithTag("CampementData").GetComponent<Inventaire>();
-
                 //Tell unity not to destroy this object when loading a new scene!
                 DontDestroyOnLoad(instance.gameObject);
 
@@ -26,8 +25,6 @@ public class Inventaire : MonoBehaviour {
     public int qteBois;
     public int qteMetal;
     public int qteNourriture;
-    public List<Arme> armes = new List<Arme>();
-    public List<Armure> armures = new List<Armure>();
 
     public int qtePierreToAdd;
     public int qteBoisToAdd;
@@ -36,16 +33,6 @@ public class Inventaire : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        if(instance==null)
-        {
-            qtePierre = 50;
-            qteBois = 50;
-            qteMetal = 50;
-            qteNourriture = 50;
-            instance = this;
-
-            DontDestroyOnLoad(this.gameObject);
-        }
 
         if (instance != null && instance != this)
         {
@@ -53,7 +40,8 @@ public class Inventaire : MonoBehaviour {
             return;
         }
 
-        
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void AddLastDayRessources()

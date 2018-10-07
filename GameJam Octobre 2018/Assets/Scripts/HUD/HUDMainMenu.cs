@@ -9,7 +9,6 @@ public class HUDMainMenu : MonoBehaviour {
 
     public void NewGameOnClick()
     {
-<<<<<<< HEAD
         CampementData.Instance.soldats.Add(new Soldat(TypeCombattant.nomTypeCombattant.Assassin));
         CampementData.Instance.soldats.Add(new Soldat(TypeCombattant.nomTypeCombattant.Eclaireur));
         CampementData.Instance.soldats.Add(new Soldat(TypeCombattant.nomTypeCombattant.Guerrier));
@@ -22,9 +21,6 @@ public class HUDMainMenu : MonoBehaviour {
         GenerationMissionExploration.GenerateMission();
 
         SceneManager.LoadScene("Campement", LoadSceneMode.Single);
-=======
-        SceneManager.LoadScene("Campement", LoadSceneMode.Single);       
->>>>>>> origin/Flotest
     }
 
     public void LoadGameOnClick(GameObject refCanvas)
@@ -42,4 +38,6 @@ public class HUDMainMenu : MonoBehaviour {
     {
         Application.Quit();
     }
+
+
 }

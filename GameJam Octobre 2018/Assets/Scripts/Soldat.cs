@@ -5,21 +5,15 @@ using UnityEngine;
 public class Soldat : ScriptableObject
 {
 
-<<<<<<< HEAD
     private string classe = "";
     public TypeCombattant combattant;
     private Buff buffCombattant;
-=======
-    private TypeCombattant combattant;
-    public Buff buffCombattant;
     public GestionXP.NiveauXP niveauSoldat;
     public GestionXP.NiveauXP niveauSuivant;
->>>>>>> origin/Flotest
 
     public Soldat(int classe)
     {
         buffCombattant = new Buff();
-<<<<<<< HEAD
 
         if (typeComb == TypeCombattant.nomTypeCombattant.Guerrier)
         {
@@ -51,7 +45,6 @@ public class Soldat : ScriptableObject
     public string GetClasse()
     {
         return classe;
-=======
         this.niveauSoldat = new GestionXP.NiveauXP();
         // 0 pour Guerrier
         if (classe == 0)
@@ -68,7 +61,6 @@ public class Soldat : ScriptableObject
 
         if (this.niveauSoldat.XPActuelle >= this.niveauSoldat.XPMax)
             UpNiveau();
->>>>>>> origin/Flotest
     }
 
     public void AttaqueAdversaire(TypeCombattant adversaire)

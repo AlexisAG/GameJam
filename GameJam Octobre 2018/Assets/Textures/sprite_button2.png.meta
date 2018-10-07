@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: cee945d43c4a6fe43b4154e5285284ec
-=======
-guid: cc25e4060ce2f1c46a8808233d0d4455
->>>>>>> origin/Flotest
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -84,7 +80,6 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-<<<<<<< HEAD
   - serializedVersion: 2
     buildTarget: Android
     maxTextureSize: 2048
@@ -96,8 +91,6 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-=======
->>>>>>> origin/Flotest
   spriteSheet:
     serializedVersion: 2
     sprites: []

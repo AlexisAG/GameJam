@@ -18,8 +18,8 @@ public class TypeCombattant : MonoBehaviour {
     public TypeCombattant(string nameCombattant,int hpMin, int hpMax, int t_gainHpParNiveau, int degatsMin, int degatsMax, int t_gainDegatsParNiveau, int pa, int mpa, int range, int niveau)
     {
         this.NomCombattant = nameCombattant;
-        this.HpCombattant = Random.Range(hpMin, hpMax + 1) + ((niveau-1) * t_gainHpParNiveau);
-        this.DegatsCombattant = Random.Range(degatsMin, degatsMax + 1) + ((niveau-1) * t_gainDegatsParNiveau); // + 1 car il s'arrete à l'avant dernier nombre sinon on le met pas
+        this.HpCombattant = Random.Range(hpMin, hpMax) + niveau * t_gainHpParNiveau;
+        this.DegatsCombattant = Random.Range(degatsMin, degatsMax) + niveau * t_gainDegatsParNiveau;
         this.GainHpParNiveau = t_gainHpParNiveau;
         this.GainDegatsParNiveau = t_gainDegatsParNiveau;
         this.PaCombattant = pa;
@@ -27,7 +27,7 @@ public class TypeCombattant : MonoBehaviour {
         this.AttackRangeCombattant = range;
         this.NiveauCombattant = 1;
     }
-    public void RecoitDegats(TypeCombattant adversaire, int degatsBuff = 0){
+    public void recoitDegats(TypeCombattant adversaire, int degatsBuff = 0){
         this.HpCombattant -= adversaire.DegatsCombattant + degatsBuff;
         if(HpCombattant <=0){
             // Faut le faire mourrir

@@ -18,12 +18,11 @@ public class CampementData : MonoBehaviour {
 
     public int nbSurvivant;
     public bool survivantContent;
-    public bool partiEnMission;
     public int nbSurvivantNonOccupé;
     // Use this for initialization
     void Start () {
 
-        if (instance == null)
+        if(instance == null)
         {
             nbSurvivant = 20; // valeur a modifier
             nbSurvivantNonOccupé = nbSurvivant;
@@ -31,5 +30,6 @@ public class CampementData : MonoBehaviour {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+
     }
 }
