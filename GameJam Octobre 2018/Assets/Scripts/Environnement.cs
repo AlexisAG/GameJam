@@ -90,14 +90,21 @@ public class Environnement : MonoBehaviour {
        });
 
         if (saisonCourante == "Ete" && JoursPassesDansLaSaison >= SEUIL_CHANGEMENT_SAISON)
+        if (saisonCourante == "Ete" && JoursPassesDansLaSaison >= seuilSaison())
         {
             SaisonCourante = "Hiver";
             JoursPassesDansLaSaison = 0;
         }
         else if (saisonCourante == "Hiver" && JoursPassesDansLaSaison >= SEUIL_CHANGEMENT_SAISON)
+        else if (saisonCourante == "Hiver" && JoursPassesDansLaSaison >= seuilSaison())
         {
             SaisonCourante = "Ete";
             JoursPassesDansLaSaison = 0;
         }
+    }
+
+    public int seuilSaison()
+    {
+        return SEUIL_CHANGEMENT_SAISON;
     }
 }

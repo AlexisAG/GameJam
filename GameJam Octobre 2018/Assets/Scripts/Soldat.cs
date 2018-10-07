@@ -5,17 +5,21 @@ using UnityEngine;
 public class Soldat : ScriptableObject
 {
 
+<<<<<<< HEAD
     private string classe = "";
     public TypeCombattant combattant;
     private Buff buffCombattant;
+=======
     private TypeCombattant combattant;
     public Buff buffCombattant;
     public GestionXP.NiveauXP niveauSoldat;
     public GestionXP.NiveauXP niveauSuivant;
+>>>>>>> origin/Flotest
 
     public Soldat(int classe)
     {
         buffCombattant = new Buff();
+<<<<<<< HEAD
 
         if (typeComb == TypeCombattant.nomTypeCombattant.Guerrier)
         {
