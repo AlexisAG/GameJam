@@ -115,11 +115,8 @@ public class HUDSelectionSoldat : MonoBehaviour {
     }
     public void AccepterOnClick()
     {
-        if(soldats.Count > 0)
-        {
-            HUDDetailMission.Mission.Soldats = soldats;
-            SceneManager.LoadScene("Mission", LoadSceneMode.Single);
-        }
+        HUDDetailMission.Mission.Soldats = soldats;
+        SceneManager.LoadScene("Mission", LoadSceneMode.Single);
 
     }
 }
