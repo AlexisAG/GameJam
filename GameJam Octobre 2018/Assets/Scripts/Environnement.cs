@@ -75,6 +75,20 @@ public class Environnement : MonoBehaviour {
         JoursPasses++;
         JoursPassesDansLaSaison++;
 
+        CampementData.Instance.missionsDisponible.Where(mission => mission.GetTypeObjectif() == Mission.TypeMission.Defense).ToList<Mission>().ForEach(defense =>
+       {
+           defense.SetNewPositionOnMap(defense.GetPositionOnMap() + 0.8f * (new Vector3(0, 0, 0) - defense.GetPositionOnMap()));
+
+           int taux = (int)(Mathf.Abs(Mathf.Sqrt((0 - defense.GetPositionOnMap().x) - (0 - defense.GetPositionOnMap().y))) - 50);
+
+           if (taux > 50)
+               CampementData.Instance.nbSurvivant -= Mathf.CeilToInt(CampementData.Instance.nbSurvivant * 0.025f);
+           else if (taux <= 50)
+               CampementData.Instance.nbSurvivant -= Mathf.CeilToInt(CampementData.Instance.nbSurvivant * 0.05f);
+           else if (taux <= 25)
+               CampementData.Instance.nbSurvivant -= Mathf.CeilToInt(CampementData.Instance.nbSurvivant * 0.10f);
+       });
+
         if (saisonCourante == "Ete" && JoursPassesDansLaSaison >= SEUIL_CHANGEMENT_SAISON)
         {
             SaisonCourante = "Hiver";
