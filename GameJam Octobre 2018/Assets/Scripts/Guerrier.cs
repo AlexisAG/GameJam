@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Guerrier : TypeCombattant {
 
-    const string nameCombattant = "Guerrier";
+    public const string nameCombattant = "Guerrier";
     const int hpMin = 9;
     const int hpMax = 12;
     const int gainHpParNiveau = 3;

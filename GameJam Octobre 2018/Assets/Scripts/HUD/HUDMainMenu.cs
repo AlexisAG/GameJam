@@ -14,11 +14,11 @@ public class HUDMainMenu : MonoBehaviour {
         CampementData.Instance.soldats.Add(new Soldat(TypeCombattant.nomTypeCombattant.Guerrier));
         CampementData.Instance.soldats.Add(new Soldat(TypeCombattant.nomTypeCombattant.Sniper));
 
-        GenerationMissionDefense.GenerateMission();
-        GenerationMissionDefense.GenerateMission();
-        GenerationMissionDefense.GenerateMission();
-        GenerationMissionDefense.GenerateMission();
-        GenerationMissionDefense.GenerateMission();
+        GenerationMissionSurvivant.GenerateMission();
+        GenerationMissionExploration.GenerateMission();
+        GenerationMissionSurvivant.GenerateMission();
+        GenerationMissionSurvivant.GenerateMission();
+        GenerationMissionExploration.GenerateMission();
 
         SceneManager.LoadScene("Campement", LoadSceneMode.Single);
     }

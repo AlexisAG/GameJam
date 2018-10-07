@@ -6,12 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Campement.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
-    path: Assets/Scenes/test.unity
-    guid: 5d020a66a11ec4a4497a2bde7252753e
-  - enabled: 1
     path: Assets/Scenes/Menu Principal.unity
     guid: e486924fb8231824683eb12763943005
+  - enabled: 1
+    path: Assets/Scenes/Campement.unity
+    guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}
