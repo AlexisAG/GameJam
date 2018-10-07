@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class Soldat : ScriptableObject
 {
 
+    private string classe = "";
+    public TypeCombattant combattant;
     private Buff buffCombattant;
     private string classe;
     private string GetClasse()
@@ -23,6 +26,7 @@ using UnityEngine;
         }   
 =======
 
+        }
 >>>>>>> origin/AlexisAG
         // 2 pour Assassin
         if (typeComb == TypeCombattant.nomTypeCombattant.Assassin)
@@ -48,6 +52,11 @@ using UnityEngine;
         }
 <<<<<<< HEAD
 =======
+    }
+
+    public string GetClasse()
+    {
+        return classe;
 >>>>>>> origin/AlexisAG
     }
 
