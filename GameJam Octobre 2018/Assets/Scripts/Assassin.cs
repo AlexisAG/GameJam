@@ -19,7 +19,7 @@ public class Assassin : TypeCombattant {
 
     public Assassin(int niveau = 1) : base(nameCombattant, hpMin, hpMax, gainHpParNiveau, degatsMin, degatsMax, gainDegatsParNiveau, pa, mpa, range, niveau)
     {
-
+        LesCompetences.Add(new Competence("attaque sournoise", 2, 20, 0, true));
     }
 
     // Use this for initialization

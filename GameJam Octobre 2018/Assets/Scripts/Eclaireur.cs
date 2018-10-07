@@ -19,7 +19,7 @@ public class Eclaireur : TypeCombattant {
 
     public Eclaireur(int niveau = 1) : base(nameCombattant, hpMin, hpMax, gainHpParNiveau, degatsMin, degatsMax, gainDegatsParNiveau, pa, mpa, range, niveau)
     {
-
+        LesCompetences.Add(new Competence("attaque calculée", 2, 12, 0, true));
     }
 
     // Use this for initialization

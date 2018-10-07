@@ -19,7 +19,7 @@ public class Guerrier : TypeCombattant {
 
     public Guerrier(int niveau = 1) : base(nameCombattant, hpMin, hpMax, gainHpParNiveau, degatsMin, degatsMax, gainDegatsParNiveau, pa, mpa, range, niveau)
     {
-
+        LesCompetences.Add(new Competence("attaque forte",2,15,0,true));
     }
 
     // Use this for initialization

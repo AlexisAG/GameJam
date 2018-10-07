@@ -19,7 +19,7 @@ public class Sniper : TypeCombattant {
 
     public Sniper(int niveau = 1) : base(nameCombattant, hpMin, hpMax, gainHpParNiveau, degatsMin, degatsMax, gainDegatsParNiveau, pa, mpa, range, niveau)
     {
-
+        LesCompetences.Add(new Competence("attaque précise", 2, 17, 0, true));
     }
 
     // Use this for initialization
