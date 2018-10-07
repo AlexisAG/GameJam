@@ -56,10 +56,9 @@ GameObject:
   - component: {fileID: 4411413857895012}
   - component: {fileID: 33812270037817640}
   - component: {fileID: 23950484942847824}
-  - component: {fileID: 114029598644988902}
   - component: {fileID: 114720813216336832}
   m_Layer: 0
-  m_Name: Guerrier IA
+  m_Name: Entite IA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,17 +304,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1913583712806026}
   m_Mesh: {fileID: 4300000, guid: 998e490019eb32f49b0e655690a8b241, type: 3}
---- !u!114 &114029598644988902
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1852936448307216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c242ebb239866fb4a97c7ce5011bf63a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114383727678827388
 MonoBehaviour:
   m_ObjectHideFlags: 1

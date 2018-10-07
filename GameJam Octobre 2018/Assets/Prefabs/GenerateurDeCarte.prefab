@@ -57,5 +57,5 @@ MonoBehaviour:
   nbObjectif: 0
   TypeMission: 0
   CombatantSpawne: []
-  soldats: []
-  ennemis: []
+  joueur: {fileID: 1332136491039598, guid: 5da47632d30b0be4e9021d6799d5510c, type: 2}
+  ennemi: {fileID: 1852936448307216, guid: 99c2d63e5112b984f9d379eef6490cb1, type: 2}
