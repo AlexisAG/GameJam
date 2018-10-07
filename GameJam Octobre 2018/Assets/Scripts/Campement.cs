@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class Campement : MonoBehaviour {
 
     
@@ -15,6 +16,9 @@ public class Campement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        
+
         survivants = new List<GameObject>();
 
         //Add the options created in the List above
@@ -22,54 +26,78 @@ public class Campement : MonoBehaviour {
 
         for (int i=0;i <= CampementData.Instance.nbSurvivant ; i++)
         {
-            GameObject go =Instantiate(SurvivantPrefab); //to do : pop random ?
-            survivants.Add(go);
+            //GameObject go =Instantiate(SurvivantPrefab); //to do : pop random ?
+            //survivants.Add(go);
         }
         ResetDropDownOption();
+        if (CampementData.Instance.partiEnMission)
+        {
+            NewDay();
+            CampementData.Instance.partiEnMission = false;
+        }
+            
     }
 
 
     public void RecolterBois()
     {
         int nbSurvivantEnvoyé = EnvoyerRecolter();
-        Inventaire.Instance.qteBoisToAdd += nbSurvivantEnvoyé; //a modifier en fonction de ressource manager        
+        Inventaire.Instance.qteBoisToAdd +=Mathf.RoundToInt( nbSurvivantEnvoyé * RessourcesManager.RatioRecolteBois() * 2); //a modifier en fonction de ressource manager        
         ResetDropDownOption();
     }
 
     public void RecolterPierre()
     {
         int nbSurvivantEnvoyé = EnvoyerRecolter();
-        Inventaire.Instance.qtePierreToAdd += nbSurvivantEnvoyé; //a modifier en fonction de ressource manager        
+        Inventaire.Instance.qtePierreToAdd += Mathf.RoundToInt(nbSurvivantEnvoyé * RessourcesManager.RatioRecolteBois() * 4); ; //a modifier en fonction de ressource manager        
         ResetDropDownOption();
     }
 
     public void RecolterMetal()
     {
         int nbSurvivantEnvoyé = EnvoyerRecolter();
-        Inventaire.Instance.qteMetalToAdd += nbSurvivantEnvoyé; //a modifier en fonction de ressource manager        
+        Inventaire.Instance.qteMetalToAdd += Mathf.RoundToInt(nbSurvivantEnvoyé * RessourcesManager.RatioRecolteBois() * 1); ; //a modifier en fonction de ressource manager        
         ResetDropDownOption();
     }
 
     public void RecolterNourriture()
     {
         int nbSurvivantEnvoyé = EnvoyerRecolter();
-        Inventaire.Instance.qteNourritureToAdd += nbSurvivantEnvoyé; //a modifier en fonction de ressource manager        
+        Inventaire.Instance.qteNourritureToAdd += Mathf.RoundToInt(nbSurvivantEnvoyé * RessourcesManager.RatioRecolteNourriture() * 2); ; //a modifier en fonction de ressource manager        
         ResetDropDownOption();
     }
 
     public void NewDay()
     {
+        Environnement.Instance.UpdateEnvironnement();
         Inventaire.Instance.AddLastDayRessources();
 
-        if (Inventaire.Instance.qteNourriture >= CampementData.Instance.nbSurvivant)
+        int qteNourritureBesoin = Mathf.RoundToInt( ( CampementData.Instance.nbSurvivant + CampementData.Instance.soldats.Count * 4) * RessourcesManager.RatioBesoin() );
+        int qteNourritureFestin = Mathf.RoundToInt( (  CampementData.Instance.nbSurvivant + CampementData.Instance.soldats.Count * 6) * RessourcesManager.RatioFestin()     );
+        if (Inventaire.Instance.qteNourriture >= qteNourritureBesoin)
         {
-            Inventaire.Instance.qteNourriture -= CampementData.Instance.nbSurvivant;
+            if (Inventaire.Instance.qteNourriture >= qteNourritureFestin)
+            {
+                Inventaire.Instance.qteNourriture -= qteNourritureFestin;
+                foreach(Soldat s in CampementData.Instance.soldats )
+                    s.buffCombattant.TropDeNourriture();
+            }
+            else
+            {
+                Inventaire.Instance.qteNourriture -= qteNourritureBesoin;
+                foreach (Soldat s in CampementData.Instance.soldats)
+                    s.buffCombattant.NourritureOk();
+            }
+                
             CampementData.Instance.survivantContent = true;
+
         }
         else
         {
-            int nourritureManquante = CampementData.Instance.nbSurvivant - Inventaire.Instance.qteNourriture;
+            int nourritureManquante = qteNourritureBesoin  - Inventaire.Instance.qteNourriture;
             Inventaire.Instance.qteNourriture = 0;
+            foreach (Soldat s in CampementData.Instance.soldats)
+                s.buffCombattant.PasAssezDeNourriture();
             Famine(nourritureManquante);
         }
 
@@ -86,10 +114,10 @@ public class Campement : MonoBehaviour {
 
         else//les tuer ses ptits batard
         {
-            CampementData.Instance.nbSurvivant -= _nourritureManquante;
+            CampementData.Instance.nbSurvivant -= Mathf.RoundToInt(_nourritureManquante /2);
             if(CampementData.Instance.nbSurvivant <=0)
             {
-                //perdu
+                SceneManager.LoadScene("Lose");
             }
         }
 
@@ -116,4 +144,12 @@ public class Campement : MonoBehaviour {
         return _nbSurvivantEnvoyé;
 
     }
+
+    public void PartirEnMission()
+    {
+        CampementData.Instance.partiEnMission = true;
+        NewDay(); // a retirer quand les mission sont implanté 
+    }
+    
+    
 }

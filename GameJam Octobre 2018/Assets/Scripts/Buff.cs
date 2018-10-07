@@ -8,8 +8,9 @@ public class Buff : MonoBehaviour {
     private int hpBuffDebuff;
     private int degatsBuffDebuff;
     public Buff(){
-        NourritureOk();
+        
         EtatBuff = new Etat();
+        NourritureOk();
     }
     public int HpBuffDebuff
     {
@@ -54,18 +55,21 @@ public class Buff : MonoBehaviour {
     {
         this.HpBuffDebuff = - 1;
         this.DegatsBuffDebuff = - 2;
+        etatBuff.PasAssezDeNourriture();
     }
 
     public void TropDeNourriture()
     {
         this.HpBuffDebuff = 1;
         this.DegatsBuffDebuff = 2;
+        etatBuff.TropDeNourriture();
     }
 
     public void NourritureOk()
     {
         this.HpBuffDebuff = 0;
         this.DegatsBuffDebuff = 0;
+        etatBuff.NourritureOk();
     }
     // Use this for initialization
     void Start () {

@@ -6,6 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+<<<<<<< HEAD
     path: Assets/Scenes/Menu Principal.unity
     guid: e486924fb8231824683eb12763943005
   - enabled: 1
@@ -14,4 +15,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Mission.unity
     guid: b494b45cfb135d349ab5c49e658971fc
+=======
+>>>>>>> origin/Flotest
   m_configObjects: {}

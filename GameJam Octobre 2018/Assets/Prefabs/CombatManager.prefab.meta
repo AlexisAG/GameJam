@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:GameJam Octobre 2018/Assets/Prefabs/CombatManager.prefab.meta
 guid: a987b785dfb408c4bafa229dc293e7dc
 NativeFormatImporter:
+=======
+guid: 10512317e4a17e94c96ae4f3bec75501
+DefaultImporter:
+>>>>>>> origin/Flotest:GameJam Octobre 2018/Assets/Scenes/SceneTao.unity.meta
   externalObjects: {}
   mainObjectFileID: 100100000
   userData: 

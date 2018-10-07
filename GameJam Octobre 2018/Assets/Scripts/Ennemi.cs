@@ -56,9 +56,14 @@ public class Ennemi : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     public void AttaqueAdversaire(TypeCombattant adversaire)
     {
         adversaire.recoitDegats(Combattant);
+=======
+    public void AttaqueAdversaire(TypeCombattant adversaire){
+        adversaire.RecoitDegats(combattant);
+>>>>>>> origin/Flotest
     }
     // Use this for initialization
     void Start()
