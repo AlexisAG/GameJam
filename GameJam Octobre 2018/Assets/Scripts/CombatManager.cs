@@ -101,8 +101,8 @@ public class CombatManager : MonoBehaviour {
 
             SceneManager.LoadScene("Campement", LoadSceneMode.Single);
         }
-
-
+        //Passage des messages de PA dans le HUD
+        HUDMission.GetComponent<HUDSceneMission>().updateMessagePA(CombattantCourrant.GetComponent<MouvementPersonnage>().UiMessage);
     }
 
     public void changementTour()

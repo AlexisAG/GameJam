@@ -383,6 +383,7 @@ MonoBehaviour:
   HP: {fileID: 114795019001323922}
   AP: {fileID: 114048153691735028}
   CharClass: {fileID: 114660803941967256}
+  PaMessage: {fileID: 114484909417326644}
   CharImage: {fileID: 114066831318549596}
   PassTurnButton: {fileID: 114206407098859798}
   AssassinTexture: {fileID: 2800000, guid: b9299cb4dadcf8b40a83bac66f4ebc60, type: 3}
@@ -557,7 +558,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: '
+
+'
 --- !u!114 &114510903163157020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -966,7 +969,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.6026777, y: 0.92084897}
   m_AnchorMax: {x: 0.6026777, y: 0.92084897}
-  m_AnchoredPosition: {x: 0, y: 0.3390007}
+  m_AnchoredPosition: {x: 0, y: 0.33898926}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224669538012677560

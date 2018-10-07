@@ -41,6 +41,8 @@ public class MouvementPersonnage : MonoBehaviour {
     public bool enTrajet = false;
     public float speed = 5;
 
+    private string uiMessage;
+
     public Vector2 PositionStart
     {
         get
@@ -90,6 +92,19 @@ public class MouvementPersonnage : MonoBehaviour {
         set
         {
             statEnnemi = value;
+        }
+    }
+
+    public string UiMessage
+    {
+        get
+        {
+            return uiMessage;
+        }
+
+        set
+        {
+            uiMessage = value;
         }
     }
 
@@ -223,11 +238,13 @@ public class MouvementPersonnage : MonoBehaviour {
             else
             {
                 Debug.Log("Mouvement impossible pas assez de pa");
+                UiMessage = "Mouvement impossible : pas assez de pa";
             }
         } else
         {
             Debug.Log("Nb PA dispo : " + paDispo);
-            Debug.Log("Nb Mouvement : " + coutTrajet + " cout en PA : " + coutEnPa);
+            Debug.Log("Nb Mouvement : " + coutTrajet + "\n cout en PA : " + coutEnPa);
+            UiMessage = "Nb Mouvement : " + coutTrajet + "\n coût en PA : " + coutEnPa;
         }
         
         
