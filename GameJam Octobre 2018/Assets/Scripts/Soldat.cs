@@ -5,12 +5,8 @@ using UnityEngine;
 public class Soldat : ScriptableObject
 {
 
-<<<<<<< HEAD
-    private TypeCombattant combattant;
     private string classe = "";
-=======
     public TypeCombattant combattant;
->>>>>>> origin/Dufourth
     private Buff buffCombattant;
 
     public Soldat(TypeCombattant.nomTypeCombattant typeComb)
