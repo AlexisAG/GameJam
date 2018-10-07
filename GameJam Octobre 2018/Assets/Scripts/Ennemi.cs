@@ -4,27 +4,40 @@ using UnityEngine;
 
 public class Ennemi : MonoBehaviour {
 
-    private TypeCombattant combattant;
+    public TypeCombattant combattant;
 
     public Ennemi(int classe, int niveau)
     {
         // Niveau set en fonction de la mission
         // 1 pour Guerrier
         if (classe == 0)
-            combattant = new Guerrier(niveau);
+            Combattant = new Guerrier(niveau);
         // 2 pour Assassin
         if (classe == 1)
-            combattant = new Assassin(niveau);
+            Combattant = new Assassin(niveau);
         // 3 pour Sniper
         if (classe == 2)
-            combattant = new Sniper(niveau);
+            Combattant = new Sniper(niveau);
         // 4 pour Eclaireur
         if (classe == 3)
-            combattant = new Eclaireur(niveau);
+            Combattant = new Eclaireur(niveau);
+    }
+
+    public TypeCombattant Combattant
+    {
+        get
+        {
+            return combattant;
+        }
+
+        set
+        {
+            combattant = value;
+        }
     }
 
     public void AttaqueAdversaire(TypeCombattant adversaire){
-        adversaire.recoitDegats(combattant);
+        adversaire.recoitDegats(Combattant);
     }
     // Use this for initialization
     void Start () {

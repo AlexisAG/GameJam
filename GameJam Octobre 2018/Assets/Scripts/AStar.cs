@@ -11,6 +11,7 @@ public class AStar {
     private List<Cell> voisins = new List<Cell>();
     private bool Fini=false;
     private GenerateurDeCarte terrain;
+    
 
     public Cell Depart
     {
@@ -50,10 +51,10 @@ public class AStar {
         terrain = null;
     }
 
-    public AStar(Vector2 m_Depart, Vector2 m_Arrive)
+    public AStar()
     {
-        Depart = new Cell(m_Depart,0,0,null);
-        Arrive = new Cell(m_Arrive, 0, 0, null);
+        Depart = new Cell(new Vector2(0,0), 0, 0, null);
+        Arrive = new Cell(new Vector2(0, 0), 0, 0, null);
         currentPos = Depart;
         ouvert.Add(Depart);
         terrain = GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>();

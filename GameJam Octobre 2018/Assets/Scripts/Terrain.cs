@@ -9,6 +9,10 @@ public class Terrain {
     private float xPos;
     private float yPos;
     private bool isFree;
+    public bool UnEnnemyDessus;
+    public GameObject EnnemyDessus;
+    public bool UnSoldatDessus;
+    public GameObject SoldatDessus;
     private int season; // 0 : Ete, 1 : Hiver
     //public GameObject caseMesh;
     private string[][] terrainsPath =

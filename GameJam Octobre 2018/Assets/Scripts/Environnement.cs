@@ -52,17 +52,16 @@ public class Environnement : MonoBehaviour {
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if(Instance == null)
         {
-            Destroy(this.gameObject);
-            return;
+            DontDestroyOnLoad(this.gameObject);
+            Instance = this;
+
+            JoursPasses = 0;
+            saisonCourante = "Ete";
         }
 
-        DontDestroyOnLoad(this.gameObject);
-        Instance = this;
-
-        JoursPasses = 0;
-        saisonCourante = "Ete";
+        
     }
 
     void UpdateEnvironnement()

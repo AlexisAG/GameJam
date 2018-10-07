@@ -48,7 +48,7 @@ public class TemporaireGamePlay : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        myAstar = new AStar(new Vector2(5, 5), new Vector2(10, 10));
+        myAstar = new AStar();
 
 
     }

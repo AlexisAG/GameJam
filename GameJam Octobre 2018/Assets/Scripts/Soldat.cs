@@ -5,7 +5,7 @@ using UnityEngine;
 public class Soldat : MonoBehaviour
 {
 
-    private TypeCombattant combattant;
+    public TypeCombattant combattant;
     private Buff buffCombattant;
 
     public Soldat(TypeCombattant.nomTypeCombattant typeComb)

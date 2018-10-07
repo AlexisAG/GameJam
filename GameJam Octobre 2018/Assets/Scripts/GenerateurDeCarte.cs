@@ -9,21 +9,25 @@ public class GenerateurDeCarte : MonoBehaviour {
 
     public int season;
 
-    public int TypeMission;
+    public int nbObjectif;
+
+    public Mission.TypeMission TypeMission;
+
+    public List<TypeCombattant> CombatantSpawne = new List<TypeCombattant>();
 
     //Temporaire
-    [SerializeField]
-    private GameObject joueur;
+    //[SerializeField]
+    //private GameObject joueur;
 
-    public int nbPersoJoueur;
+    public List<Soldat> soldats = new List<Soldat>();
 
-    public int nbPersoEnnemie;
+    public List<Ennemi> ennemis = new List<Ennemi>();
 
     private List<Vector2> JoueurSpawnPos = new List<Vector2>();
 
     private Dictionary<Vector2Int, Terrain> tableauterrain = new Dictionary<Vector2Int, Terrain>();
 
-    private Objectif objectifMission;
+    public List<Objectif> objectifsMission = new List<Objectif>();
 
     public int XSize
     {
@@ -64,19 +68,6 @@ public class GenerateurDeCarte : MonoBehaviour {
         }
     }
 
-    public Objectif ObjectifMission
-    {
-        get
-        {
-            return objectifMission;
-        }
-
-        set
-        {
-            objectifMission = value;
-        }
-    }
-
     public Dictionary<Vector2Int, Terrain> Tableauterrain
     {
         get
@@ -93,18 +84,23 @@ public class GenerateurDeCarte : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        float now = Time.realtimeSinceStartup;
-        GenererLaCarte();
-        PlacerObjectif();
-        PlacerJoueur();
-        PlacerEnnemi();
-        Debug.Log("temps génération : " + (Time.realtimeSinceStartup - now) + " Secondes ");
+
     }
 
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    public void GenererLaMission()
+    {
+        float now = Time.realtimeSinceStartup;
+        GenererLaCarte();
+        PlacerObjectifs();
+        PlacerJoueur();
+        PlacerEnnemi();
+        Debug.Log("temps génération : " + (Time.realtimeSinceStartup - now) + " Secondes ");
+    }
 
 
     private void GenererLaCarte()
@@ -151,30 +147,42 @@ public class GenerateurDeCarte : MonoBehaviour {
         return typeCase;
     }
 
-    private void PlacerObjectif()
+    private void PlacerObjectifs()
     {
-        int xAleatoireObtenu = Mathf.FloorToInt(Random.Range((XSize / 5)+2, (XSize/10)+2));
-        int yAleatoireObtenu = Mathf.FloorToInt(Random.Range((YSize / 5)+2, (YSize/10)+2));
-        if(Tableauterrain[new Vector2Int(xAleatoireObtenu,yAleatoireObtenu)].TypeCase == 1)
+
+        for(int k=0; k<nbObjectif;k++)
         {
-            Tableauterrain[new Vector2Int(xAleatoireObtenu, yAleatoireObtenu)].IsFree = false;
-            ObjectifMission = new Objectif(xAleatoireObtenu, yAleatoireObtenu, TypeMission);
-        } else
-        {
-            int typeCase = 0;
-            for(int i= -1; i<=1  && typeCase != 1;i++)
+            int xAleatoireObtenu = Mathf.FloorToInt(Random.Range( 3, XSize - XSize/ 5 - 2 ));
+            int yAleatoireObtenu = Mathf.FloorToInt(Random.Range( 3, YSize - XSize / 5 - 2));
+
+            if (Tableauterrain[new Vector2Int(xAleatoireObtenu, yAleatoireObtenu)].TypeCase == 1)
             {
-                for (int j = -1; j <= 1 && typeCase != 1; j ++)
+                Tableauterrain[new Vector2Int(xAleatoireObtenu, yAleatoireObtenu)].IsFree = false;
+                objectifsMission.Add(new Objectif(xAleatoireObtenu, yAleatoireObtenu, (int)TypeMission));
+                nbObjectif--;
+            }
+            else
+            {
+                int typeCase = 0;
+                for (int i = -1; i <= 1 && typeCase != 1; i++)
                 {
-                    if(Tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].IsFree == true)
+                    for (int j = -1; j <= 1 && typeCase != 1; j++)
                     {
-                        typeCase = 1;
-                        Tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].IsFree = false;
-                        ObjectifMission = new Objectif(xAleatoireObtenu + i, yAleatoireObtenu + j, TypeMission);
+                        if (Tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].IsFree == true)
+                        {
+                            typeCase = 1;
+                            Tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].IsFree = false;
+                            nbObjectif--;
+                        }
                     }
                 }
             }
         }
+        if(nbObjectif > 0 )
+        {
+            PlacerObjectifs();
+        }
+        
     }
 
     private void PlacerJoueur()
@@ -183,7 +191,7 @@ public class GenerateurDeCarte : MonoBehaviour {
         int xAleatoireObtenu = Mathf.FloorToInt(Random.Range(XSize-(XSize / 10) - 2, XSize-(XSize / 5) - 2));
         int yAleatoireObtenu = Mathf.FloorToInt(Random.Range(YSize-(YSize / 10) - 2, YSize-(YSize / 5) - 2));
 
-        int nbSpawn = nbPersoJoueur;
+        int nbSpawn = soldats.Count;
 
         for (int i = -1; i <= 1 && nbSpawn > 0; i++)
         {
@@ -193,7 +201,8 @@ public class GenerateurDeCarte : MonoBehaviour {
                 {
                     nbSpawn--;
                     JoueurSpawnPos.Add(new Vector2(xAleatoireObtenu + i, yAleatoireObtenu + j));
-                    Instantiate(joueur, new Vector3(xAleatoireObtenu + i, 0.5f, yAleatoireObtenu + j), Quaternion.identity);
+                    CombatantSpawne.Add(Instantiate(soldats[nbSpawn].GetTypeCombattant(), new Vector3(xAleatoireObtenu + i, 0.5f, yAleatoireObtenu + j), Quaternion.identity));
+                    
                 }
             }
         }
@@ -201,16 +210,23 @@ public class GenerateurDeCarte : MonoBehaviour {
 
     private void PlacerEnnemi()
     {
-        int nbSpawn = nbPersoEnnemie;
-        for (int i = -2; i <= 2 && nbSpawn > 0; i++)
+        int nbSpawn = ennemis.Count;
+        int objectif = 0;
+        for (int i = -1; i <= 1 && nbSpawn > 0; i++)
         {
-            for (int j = -2; j <= 2 && nbSpawn > 0; j++)
+            for (int j = -1; j <= 1 && nbSpawn > 0; j++)
             {
-                if (Tableauterrain[new Vector2Int((int)ObjectifMission.XPos + i, (int)ObjectifMission.YPos + j)].IsFree == true)
+                int randomObjectif = objectif;
+                if (Tableauterrain[new Vector2Int((int)objectifsMission[randomObjectif].XPos + i, (int)objectifsMission[randomObjectif].YPos + j)].IsFree == true)
                 {
                     nbSpawn--;
-                    JoueurSpawnPos.Add(new Vector2((int)ObjectifMission.XPos + i, (int)ObjectifMission.YPos + j));
-                    Instantiate(joueur, new Vector3((int)ObjectifMission.XPos + i, 0.5f, (int)ObjectifMission.YPos + j), Quaternion.identity);
+                    JoueurSpawnPos.Add(new Vector2((int)objectifsMission[randomObjectif].XPos + i, (int)objectifsMission[randomObjectif].YPos + j));
+                    CombatantSpawne.Add(Instantiate(ennemis[nbSpawn].Combattant, new Vector3((int)objectifsMission[randomObjectif].XPos + i, 0.5f, (int)objectifsMission[randomObjectif].YPos + j), Quaternion.identity));
+                    objectif++;
+                    if(objectif > objectifsMission.Count - 1 )
+                    {
+                        objectif = 0;
+                    }
                 }
             }
         }

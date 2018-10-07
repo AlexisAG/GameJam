@@ -11,8 +11,9 @@ public class Objectif {
 
     private string[] objectifPath =
     {
-        "Assets/Modeles/Mesh_coffre.fbx", // 0 : Ressource
-        "Assets/Modeles/Mesh_civil.fbx" // 1 : Civil
+        "", // 0
+        "Assets/Modeles/Mesh_coffre.fbx", // 1 : Ressource
+        "Assets/Modeles/Mesh_civil.fbx" // 2 : Civil
     };
 
 
@@ -61,7 +62,10 @@ public class Objectif {
         XPos = m_xPos;
         YPos = m_yPos;
         TypeObjectif = m_typeObjectif;
-
-        Object.Instantiate<GameObject>(AssetDatabase.LoadAssetAtPath<GameObject>(objectifPath[m_typeObjectif]), new Vector3(XPos, 0.5f, YPos), Quaternion.identity);
+        if(typeObjectif != 0)
+        {
+            Object.Instantiate<GameObject>(AssetDatabase.LoadAssetAtPath<GameObject>(objectifPath[m_typeObjectif]), new Vector3(XPos, 0.5f, YPos), Quaternion.identity);
+        }
+        
     }
 }
