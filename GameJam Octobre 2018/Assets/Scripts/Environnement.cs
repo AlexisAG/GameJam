@@ -108,4 +108,9 @@ public class Environnement : MonoBehaviour {
             JoursPassesDansLaSaison = 0;
         }
     }
+
+    public int seuilSaison()
+    {
+        return SEUIL_CHANGEMENT_SAISON;
+    }
 }

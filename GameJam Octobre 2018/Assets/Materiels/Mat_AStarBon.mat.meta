@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:GameJam Octobre 2018/Assets/Materiels/Mat_AStarBon.mat.meta
 guid: e310016a63655cd43969792fa737b68a
 NativeFormatImporter:
+=======
+guid: 8fd8ec8f9549ed840902493b03145075
+DefaultImporter:
+>>>>>>> origin/Flotest:GameJam Octobre 2018/Assets/Scenes/test.unity.meta
   externalObjects: {}
   mainObjectFileID: 2100000
   userData: 

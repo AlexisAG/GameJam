@@ -29,6 +29,11 @@ public class HUDMainMenu : MonoBehaviour {
 
     public void LoadGameOnClick(GameObject refCanvas)
     {
+        GestionPartie.control.Load();
+        SceneManager.LoadScene("Campement", LoadSceneMode.Single);
+
+
+
         refCanvas.SetActive(true);
         this.gameObject.SetActive(false);
     }
