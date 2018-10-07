@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Soldat : MonoBehaviour
 {
 
-    private TypeCombattant combattant;
     private Buff buffCombattant;
     private string classe;
     private string GetClasse()
@@ -21,7 +19,11 @@ public class Soldat : MonoBehaviour
         {
             combattant = new Guerrier();
             classe = "Guerrier";
+<<<<<<< HEAD
         }   
+=======
+
+>>>>>>> origin/AlexisAG
         // 2 pour Assassin
         if (typeComb == TypeCombattant.nomTypeCombattant.Assassin)
         {
@@ -33,6 +35,10 @@ public class Soldat : MonoBehaviour
         {
             combattant = new Sniper();
             classe = "Sniper";
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/AlexisAG
         }
         // 4 pour Eclaireur
         if (typeComb == TypeCombattant.nomTypeCombattant.Eclaireur)
@@ -40,6 +46,9 @@ public class Soldat : MonoBehaviour
             combattant = new Eclaireur();
             classe = "Eclaireur";
         }
+<<<<<<< HEAD
+=======
+>>>>>>> origin/AlexisAG
     }
 
     public void AttaqueAdversaire(TypeCombattant adversaire)

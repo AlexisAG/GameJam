@@ -9,20 +9,12 @@ public class CampementData : MonoBehaviour {
     {
         get
         {
-            if (instance == null)
-            {
-                instance = GameObject.FindGameObjectWithTag("CampementData").GetComponent<CampementData>();
-                
-                //Tell unity not to destroy this object when loading a new scene!
-                DontDestroyOnLoad(instance.gameObject);
-                
-            }
             return instance;
         }
     }
-    public List<Batiment> batiments; // liste des batiment dans la scene a lier dans l'editeur
-    public List<Soldat> soldats;
-    public List<Mission> missionsDisponible;
+    public List<Batiment> batiments = new List<Batiment>(); // liste des batiment dans la scene a lier dans l'editeur
+    public List<Soldat> soldats = new List<Soldat>();
+    public List<Mission> missionsDisponible = new List<Mission>();
 
     public int nbSurvivant;
     public bool survivantContent;
@@ -35,8 +27,6 @@ public class CampementData : MonoBehaviour {
             nbSurvivant = 20; // valeur a modifier
             nbSurvivantNonOccupé = nbSurvivant;
             survivantContent = true; // valeur a modifier
-            soldats = new List<Soldat>();
-            missionsDisponible = new List<Mission>();
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }

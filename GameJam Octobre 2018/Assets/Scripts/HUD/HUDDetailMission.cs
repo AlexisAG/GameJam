@@ -7,6 +7,7 @@ public class HUDDetailMission : MonoBehaviour {
 
     public Text nom, type, difficulte, gain;
     public static Mission Mission;
+    public GameObject refHUD;
 
     public void Start()
     {
@@ -15,7 +16,6 @@ public class HUDDetailMission : MonoBehaviour {
 
     public void DisplayMission()
     {
-        Debug.Log(Mission.ToString());
         nom.text = Mission.GetName();
         switch (Mission.GetTypeObjectif())
         {
@@ -44,6 +44,7 @@ public class HUDDetailMission : MonoBehaviour {
 	
     public void Accepter ()
     {
-
+        refHUD.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

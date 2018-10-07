@@ -578,8 +578,8 @@ MonoBehaviour:
   batiments: []
   soldats: []
   missionsDisponible: []
-  nbSurvivant: 5
-  survivantContent: 1
+  nbSurvivant: 0
+  survivantContent: 0
   "nbSurvivantNonOccup\xE9": 0
 --- !u!1001 &1444561634
 Prefab:
