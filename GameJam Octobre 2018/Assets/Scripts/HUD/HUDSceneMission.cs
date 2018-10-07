@@ -8,6 +8,7 @@ public class HUDSceneMission : MonoBehaviour {
     public Text HP;
     public Text AP;
     public Text CharClass;
+    public Text PaMessage;
     public RawImage CharImage;
     public Button PassTurnButton;
     public Texture AssassinTexture, EclaireurTexture, GuerrierTexture, ArcherTexture,EnnemiTexture;
@@ -92,6 +93,11 @@ public class HUDSceneMission : MonoBehaviour {
         }
 
         joueurActuel = newPlayer;
+    }
+
+    public void updateMessagePA(string message)
+    {
+        PaMessage.text = message;
     }
 
     /*void AbandonGame(){

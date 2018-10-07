@@ -47,6 +47,7 @@ public class CombatManager : MonoBehaviour {
         }
 
         CombattantCourrant = listeCombattant[0];
+        
         HUDMission.GetComponent<HUDSceneMission>().StartHUD();
         CombattantCourrant.GetComponent<MouvementPersonnage>().CommencerSonTour();
 
@@ -65,9 +66,13 @@ public class CombatManager : MonoBehaviour {
             Debug.Log("space appuyé");
             changementTour();
         }
-        
-        if(listeCombattant.Where(combattant => combattant.GetComponent<MouvementPersonnage>().unJoueurControle == false).ToList<GameObject>().Count == 0 
-            || CarteGenerateur.objectifsMission.Count <= 0)
+        if (listeCombattant.Where(combattant => combattant.GetComponent<MouvementPersonnage>().unJoueurControle == true).ToList<GameObject>().Count == 0)
+        {
+            //Perdu
+            FinMission();
+        }
+        if (listeCombattant.Where(combattant => combattant.GetComponent<MouvementPersonnage>().unJoueurControle == false).ToList<GameObject>().Count == 0 
+        || CarteGenerateur.objectifsMission.Count <= 0)
         {
             switch (HUDDetailMission.Mission.GetTypeObjectif())
             {
@@ -82,27 +87,32 @@ public class CombatManager : MonoBehaviour {
                     break;
             }
 
-            Environnement.Instance.UpdateEnvironnement();
-            CampementData.Instance.missionsDisponible.RemoveAt(CampementData.Instance.missionsDisponible.IndexOf(HUDDetailMission.Mission));
-            int random = Random.Range(0, 2);
+            FinMission();
+        }
+        //Passage des messages de PA dans le HUD
+        HUDMission.GetComponent<HUDSceneMission>().updateMessagePA(CombattantCourrant.GetComponent<MouvementPersonnage>().UiMessage);
+    }
 
-            switch (random)
-            {
-                case 0:
-                    GenerationMissionDefense.GenerateMission();
-                    break;
-                case 1:
-                    GenerationMissionExploration.GenerateMission();
-                    break;
-                case 2:
-                    GenerationMissionSurvivant.GenerateMission();
-                    break;
-            }
+    public void FinMission()
+    {
+        Environnement.Instance.UpdateEnvironnement();
+        CampementData.Instance.missionsDisponible.RemoveAt(CampementData.Instance.missionsDisponible.IndexOf(HUDDetailMission.Mission));
+        int random = Random.Range(0, 2);
 
-            SceneManager.LoadScene("Campement", LoadSceneMode.Single);
+        switch (random)
+        {
+            case 0:
+                GenerationMissionDefense.GenerateMission();
+                break;
+            case 1:
+                GenerationMissionExploration.GenerateMission();
+                break;
+            case 2:
+                GenerationMissionSurvivant.GenerateMission();
+                break;
         }
 
-
+        SceneManager.LoadScene("Campement", LoadSceneMode.Single);
     }
 
     public void changementTour()
