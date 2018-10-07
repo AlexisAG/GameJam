@@ -331,6 +331,7 @@ MonoBehaviour:
   nomDuTypeDeCombattant: 0
   statCombatant: {fileID: 0}
   road: {fileID: 1133904836506458, guid: 732e718c8662a77429f2c665f46d6b57, type: 2}
+  roadGood: {fileID: 1371057214985288, guid: dc0913e4d19570940b492d0419d7ea60, type: 2}
   ping: {fileID: 100000, guid: 38a499b2bfa53f4458b6ae8c2840da7d, type: 3}
   trajetObject: []
   startObjectPos: {fileID: 0}
