@@ -116,10 +116,10 @@ public class MouvementPersonnage : MonoBehaviour {
         {
             if(!unJoueurControle )
             {
-                //FinDeTour();
-                ObtenirEntiteProche();
+                FinDeTour();
+                /*ObtenirEntiteProche();
                 AllerSurEntite();
-                GameObject.Find("CombatManager").GetComponent<CombatManager>().changementTour();
+                GameObject.Find("CombatManager").GetComponent<CombatManager>().changementTour();*/
             }
             if(!enTrajet && paDispo <= 0)
             {
@@ -158,7 +158,7 @@ public class MouvementPersonnage : MonoBehaviour {
     {
         if (unJoueurControle)
         {
-            StatSoldat = CampementData.Instance.soldats[i];
+            StatSoldat = HUDDetailMission.Mission.Soldats[i];
             statCombatant = StatSoldat.combattant;
         }
         else

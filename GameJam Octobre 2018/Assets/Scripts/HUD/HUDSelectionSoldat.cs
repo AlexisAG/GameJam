@@ -78,12 +78,13 @@ public class HUDSelectionSoldat : MonoBehaviour {
         {
             if (soldats.IndexOf(CampementData.Instance.soldats[index]) == -1)
             {
-                soldats.Add(CampementData.Instance.soldats[index]);
                 btn.GetComponentInChildren<Text>().text = "Deselectionner";
                 Color color = btn.GetComponent<Image>().color = Color.green;
                 if (soldats.Count >= 4)
                     content.GetComponentsInChildren<Button>().Where(button => button.GetComponentInChildren<Text>().text == "Sélectionner").ToList<Button>().ForEach(btnTemp => btnTemp.enabled = false);
                 isNew = true;
+                soldats.Add(CampementData.Instance.soldats[index]);
+                Debug.Log(soldats[0].GetClasse());
             }
             else
             {
@@ -107,6 +108,7 @@ public class HUDSelectionSoldat : MonoBehaviour {
 
     public void RetourOnClick()
     {
+        soldats = new List<Soldat>();
         HUDDetailMission.Mission = null;
         refHUD.SetActive(true);
         gameObject.SetActive(false);
