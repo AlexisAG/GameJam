@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour {
 
     public List<GameObject> listeCombattant = new List<GameObject>();
 
-    public GameObject CombattantCourrant;
+    public GameObject CombattantCourrant, HUDMission;
 
     public GenerateurDeCarte CarteGenerateur;
 
@@ -46,20 +47,27 @@ public class CombatManager : MonoBehaviour {
         }
 
         CombattantCourrant = listeCombattant[0];
-
+        HUDMission.GetComponent<HUDSceneMission>().StartHUD();
         CombattantCourrant.GetComponent<MouvementPersonnage>().CommencerSonTour();
 
     }
 
     // Update is called once per frame
     void Update () {
+        if (CombattantCourrant.GetComponent<MouvementPersonnage>().enTrajet)
+            GameObject.Find("EndTurnButton").GetComponent<Button>().enabled = false;
+        else
+            GameObject.Find("EndTurnButton").GetComponent<Button>().enabled = true;
+
+
         if (Input.GetKeyUp(KeyCode.Space) && !CombattantCourrant.GetComponent<MouvementPersonnage>().enTrajet)
         {
             Debug.Log("space appuyé");
-            CombattantCourrant.GetComponent<MouvementPersonnage>().FinDeTour();
             changementTour();
         }
-        if(listeCombattant.Where(combattant => combattant.GetComponent<MouvementPersonnage>().unJoueurControle == false).ToList<GameObject>().Count == 0)
+        
+        if(listeCombattant.Where(combattant => combattant.GetComponent<MouvementPersonnage>().unJoueurControle == false).ToList<GameObject>().Count == 0 
+            || CarteGenerateur.objectifsMission.Count <= 0)
         {
             switch (HUDDetailMission.Mission.GetTypeObjectif())
             {
@@ -74,7 +82,7 @@ public class CombatManager : MonoBehaviour {
                     break;
             }
 
-            Environnement.Instance.JoursPasses += 1;
+            Environnement.Instance.UpdateEnvironnement();
             CampementData.Instance.missionsDisponible.RemoveAt(CampementData.Instance.missionsDisponible.IndexOf(HUDDetailMission.Mission));
             int random = Random.Range(0, 2);
 
@@ -99,6 +107,7 @@ public class CombatManager : MonoBehaviour {
 
     public void changementTour()
     {
+        CombattantCourrant.GetComponent<MouvementPersonnage>().FinDeTour();
         int indexJoueurCourrant = listeCombattant.IndexOf(CombattantCourrant);
         if(indexJoueurCourrant + 1 > listeCombattant.Count - 1)
         {
@@ -113,7 +122,7 @@ public class CombatManager : MonoBehaviour {
 
             
         }
-
+        HUDMission.GetComponent<HUDSceneMission>().changePlayerHUD(CombattantCourrant);
         CombattantCourrant.GetComponent<MouvementPersonnage>().CommencerSonTour();
     }
 }

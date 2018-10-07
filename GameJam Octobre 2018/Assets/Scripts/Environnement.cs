@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Environnement : MonoBehaviour {
 
-    string saisonCourante;
-    int joursPasses;
-    int joursPassesDansLaSaison;
+    public string saisonCourante;
+    public int joursPasses;
+    public int joursPassesDansLaSaison;
     const int SEUIL_CHANGEMENT_SAISON = 10;
 
     public string SaisonCourante
@@ -34,8 +35,8 @@ public class Environnement : MonoBehaviour {
             joursPasses = value;
         }
     }
-    
-    public static Environnement Instance { get; set; }
+    private static Environnement instance;
+    public static Environnement Instance { get { return instance; }  }
 
     public int JoursPassesDansLaSaison
     {
@@ -52,29 +53,34 @@ public class Environnement : MonoBehaviour {
 
     private void Awake()
     {
-        if(Instance == null)
+        if (instance == null)
         {
             DontDestroyOnLoad(this.gameObject);
-            Instance = this;
+            instance = this;
 
             JoursPasses = 0;
             saisonCourante = "Ete";
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this.gameObject);
+                return;
+            }
         }
 
         
     }
 
-    void UpdateEnvironnement()
+    public void UpdateEnvironnement()
     {
         JoursPasses++;
         JoursPassesDansLaSaison++;
 
-        if (saisonCourante == "Ete" && joursPasses >= SEUIL_CHANGEMENT_SAISON)
+        if (saisonCourante == "Ete" && JoursPassesDansLaSaison >= SEUIL_CHANGEMENT_SAISON)
         {
             SaisonCourante = "Hiver";
             JoursPassesDansLaSaison = 0;
         }
-        else if (saisonCourante == "Hiver" && JoursPasses >= SEUIL_CHANGEMENT_SAISON)
+        else if (saisonCourante == "Hiver" && JoursPassesDansLaSaison >= SEUIL_CHANGEMENT_SAISON)
         {
             SaisonCourante = "Ete";
             JoursPassesDansLaSaison = 0;

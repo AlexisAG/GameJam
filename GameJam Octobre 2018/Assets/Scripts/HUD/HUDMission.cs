@@ -22,4 +22,10 @@ public class HUDMission : MonoBehaviour {
         HudDetail.gameObject.SetActive(true);
         HudDetail.GetComponent<HUDDetailMission>().DisplayMission();
     }
+
+    public void GoBack()
+    {
+        gameObject.SetActive(false);
+    }
+
 }

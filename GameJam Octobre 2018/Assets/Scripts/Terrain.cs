@@ -13,6 +13,8 @@ public class Terrain {
     public GameObject EnnemyDessus;
     public bool UnSoldatDessus;
     public GameObject SoldatDessus;
+    public bool estUnObjectif;
+    public Objectif Objectif;
     private int season; // 0 : Ete, 1 : Hiver
     //public GameObject caseMesh;
     private string[][] terrainsPath =
@@ -21,12 +23,26 @@ public class Terrain {
         {
             "Assets/Modeles/Mesh_SolEteBase.fbx", // 0 Été
             "Assets/Modeles/Mesh_SolEtePierre.fbx", // 1 Été
-            "Assets/Modeles/Mesh_SolHerbe.fbx" // 2 Été
+            "Assets/Modeles/Mesh_SoEtelHerbe.fbx" // 2 Été
         },
         new string[] // Hiver
         {
             "Assets/Modeles/Mesh_SolHiverBase.fbx", // 3 Hiver
             "Assets/Modeles/Mesh_SolHiverPierre.fbx" // 4 Hiver
+        }
+    };
+
+    private string[][] obstaclePath =
+    {
+        new string[] // Été
+        {
+            "Assets/Modeles/Mesh_ArbreEte.fbx", // 0 Été
+            "Assets/Modeles/Mesh_Pierre.fbx"
+        },
+        new string[] // Hiver
+        {
+            "Assets/Modeles/Mesh_ArbreHiver.fbx", // 3 Hiver
+            "Assets/Modeles/Mesh_Pierre.fbx" // 4 Hiver
         }
     };
 
@@ -101,7 +117,8 @@ public class Terrain {
         XPos = m_xPos;
         YPos = m_yPos;
         Season = m_season;
-        if(m_typeCase == 1)
+        estUnObjectif = false;
+        if (m_typeCase == 1)
         {
             IsFree = true;
             int random = Mathf.FloorToInt(Random.Range(0, terrainsPath[Season].Length));
@@ -112,8 +129,9 @@ public class Terrain {
             if(m_typeCase == 2)
             {
                 int random = Mathf.FloorToInt(Random.Range(0, terrainsPath[Season].Length));
+                int randomObstacle = Mathf.FloorToInt(Random.Range(0, obstaclePath[Season].Length));
                 Object.Instantiate<GameObject>(AssetDatabase.LoadAssetAtPath<GameObject>(terrainsPath[Season][random]), new Vector3(XPos, 0, YPos), Quaternion.identity);
-                Object.Instantiate<GameObject>(AssetDatabase.LoadAssetAtPath<GameObject>(terrainsPath[Season][random]), new Vector3(XPos, 1, YPos), Quaternion.identity);
+                Object.Instantiate<GameObject>(AssetDatabase.LoadAssetAtPath<GameObject>(obstaclePath[Season][randomObstacle]), new Vector3(XPos, 1, YPos), Quaternion.identity);
             }
         }
         

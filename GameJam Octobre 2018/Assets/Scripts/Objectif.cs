@@ -9,6 +9,8 @@ public class Objectif {
     private float yPos;
     private int typeObjectif;
 
+    public GameObject Mesh;
+
     private string[] objectifPath =
     {
         "", // 0
@@ -64,7 +66,7 @@ public class Objectif {
         TypeObjectif = m_typeObjectif;
         if(typeObjectif != 0)
         {
-            Object.Instantiate<GameObject>(AssetDatabase.LoadAssetAtPath<GameObject>(objectifPath[m_typeObjectif]), new Vector3(XPos, 0.5f, YPos), Quaternion.identity);
+            Mesh = Object.Instantiate<GameObject>(AssetDatabase.LoadAssetAtPath<GameObject>(objectifPath[m_typeObjectif]), new Vector3(XPos, 0.5f, YPos), Quaternion.identity);
         }
         
     }

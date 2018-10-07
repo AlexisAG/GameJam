@@ -154,7 +154,9 @@ public class GenerateurDeCarte : MonoBehaviour {
             if (Tableauterrain[new Vector2Int(xAleatoireObtenu, yAleatoireObtenu)].TypeCase == 1)
             {
                 Tableauterrain[new Vector2Int(xAleatoireObtenu, yAleatoireObtenu)].IsFree = false;
-                objectifsMission.Add(new Objectif(xAleatoireObtenu, yAleatoireObtenu, (int)TypeMission));
+                Tableauterrain[new Vector2Int(xAleatoireObtenu, yAleatoireObtenu)].estUnObjectif = true;
+                Tableauterrain[new Vector2Int(xAleatoireObtenu, yAleatoireObtenu)].Objectif = new Objectif(xAleatoireObtenu, yAleatoireObtenu, (int)TypeMission);
+                objectifsMission.Add(Tableauterrain[new Vector2Int(xAleatoireObtenu, yAleatoireObtenu)].Objectif);
                 nbObjectif--;
             }
             else
@@ -168,6 +170,10 @@ public class GenerateurDeCarte : MonoBehaviour {
                         {
                             typeCase = 1;
                             Tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].IsFree = false;
+                            Tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].estUnObjectif = true;
+                            Tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].Objectif = new Objectif(xAleatoireObtenu, yAleatoireObtenu, (int)TypeMission);
+                            objectifsMission.Add(Tableauterrain[new Vector2Int(xAleatoireObtenu + i, yAleatoireObtenu + j)].Objectif);
+
                             nbObjectif--;
                         }
                     }

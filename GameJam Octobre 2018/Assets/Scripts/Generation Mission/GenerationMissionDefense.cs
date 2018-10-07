@@ -6,7 +6,7 @@ public class GenerationMissionDefense {
 
     public static void GenerateMission ()
     {
-        Mission mission = new Mission(Mission.TypeMission.Defense, 0, CreateLvlMission(),
+        Mission mission = new Mission(Mission.TypeMission.Defense, (byte)Random.Range(3,7), CreateLvlMission(),
                                                        0, CreateName(), new Vector3(Random.Range(-250, 250), Random.Range(-250, 250)));
         mission.Ennemis = CreateEnnemi(mission.GetLvlMission());
 

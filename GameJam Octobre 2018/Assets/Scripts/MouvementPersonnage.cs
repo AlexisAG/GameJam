@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MouvementPersonnage : MonoBehaviour {
@@ -18,6 +19,8 @@ public class MouvementPersonnage : MonoBehaviour {
     private Soldat statSoldat;
 
     private Ennemi statEnnemi;
+
+    private GameObject EnnemiFocus;
 
     public TypeCombattant statCombatant;
 
@@ -113,7 +116,9 @@ public class MouvementPersonnage : MonoBehaviour {
         {
             if(!unJoueurControle )
             {
-                FinDeTour();
+                //FinDeTour();
+                ObtenirEntiteProche();
+                AllerSurEntite();
                 GameObject.Find("CombatManager").GetComponent<CombatManager>().changementTour();
             }
             if(!enTrajet && paDispo <= 0)
@@ -192,7 +197,7 @@ public class MouvementPersonnage : MonoBehaviour {
             }
         }
         coutTrajet = results.Count;
-        int coutEnPa = Mathf.CeilToInt(coutTrajet / statCombatant.MpaCombattant) + 1;
+        int coutEnPa = Mathf.FloorToInt(coutTrajet / statCombatant.MpaCombattant);
         if (FaireChemin)
         {
             if (paDispo >= coutEnPa)
@@ -243,93 +248,97 @@ public class MouvementPersonnage : MonoBehaviour {
     private void ShowTrajet(bool FaireChemin)
     {
         Vector2 MousePos = PointToWorld();
-        if (generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].IsFree)
+        Debug.LogWarning("Mouse pos : " + MousePos);
+        if(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain.ContainsKey( new Vector2Int((int)MousePos.x, (int)MousePos.y)) == true)
         {
-            Debug.Log("je passe");
-            PositionEnd = MousePos;
-            GenerateChemin(FaireChemin);
-        }
-        else
-        {
-            if(unJoueurControle)
+            if (generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].IsFree)
             {
-                if (generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].UnEnnemyDessus)
+                Debug.Log("je passe");
+                PositionEnd = MousePos;
+                GenerateChemin(FaireChemin);
+            }
+            else
+            {
+                if (unJoueurControle)
                 {
-                    if(CheckPeutAttaquer(new Vector2Int((int)MousePos.x, (int)MousePos.y)))
+                    if (generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].UnEnnemyDessus)
                     {
-                        Debug.Log("Peux attaquer ennemy");
-                        if(FaireChemin)
+                        if (CheckPeutAttaquer(new Vector2Int((int)MousePos.x, (int)MousePos.y)) && paDispo >= 1)
                         {
-                            TypeCombattant ennemy = generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].EnnemyDessus.GetComponent<MouvementPersonnage>().statCombatant;
-                            Debug.Log("Avant : Vie enemy : " + ennemy.HpCombattant);
-                            StatSoldat.AttaqueAdversaire(ennemy);
-                            if(ennemy.HpCombattant<=0)
+                            Debug.Log("Peux attaquer ennemy");
+                            if (FaireChemin)
                             {
-                                Debug.LogWarning(GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.Count);
-                                GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.RemoveAt(GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.IndexOf(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].EnnemyDessus));
-                                GameObject.Destroy(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].EnnemyDessus);
-                                Debug.LogWarning(GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.Count);
+                                TypeCombattant ennemy = generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].EnnemyDessus.GetComponent<MouvementPersonnage>().statCombatant;
+                                Debug.Log("Avant : Vie enemy : " + ennemy.HpCombattant);
+                                StatSoldat.AttaqueAdversaire(ennemy);
+                                if (ennemy.HpCombattant <= 0)
+                                {
+                                    Debug.LogWarning(GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.Count);
+                                    GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.RemoveAt(GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.IndexOf(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].EnnemyDessus));
+                                    GameObject.Destroy(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].EnnemyDessus);
+                                    Debug.LogWarning(GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.Count);
+                                }
+                                Debug.Log("Après : Vie enemy : " + ennemy.HpCombattant);
+                                --paDispo;
                             }
-                            Debug.Log("Après : Vie enemy : " + ennemy.HpCombattant);
                         }
                     }
-                } else if(GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].UnSoldatDessus)
-                {
-                    Debug.Log("Un allié");
-                } else
-                {
-                    Debug.Log("Impossible obstacle");
+                    else if (generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].UnSoldatDessus)
+                    {
+                        Debug.Log("Un allié");
+                    }
+                    else if (generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].estUnObjectif)
+                    {
+                        if (CheckSiVoisin(new Vector2Int((int)MousePos.x, (int)MousePos.y)))
+                        {
+                            if (FaireChemin)
+                            {
+                                Debug.LogWarning(generateurDeCarte.objectifsMission.Count);
+                                Debug.LogWarning(generateurDeCarte.objectifsMission.IndexOf(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].Objectif));
+                                generateurDeCarte.objectifsMission.RemoveAt(generateurDeCarte.objectifsMission.IndexOf(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].Objectif));
+                                GameObject.Destroy(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].Objectif.Mesh);
+                                generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].IsFree = true;
+                                Debug.LogWarning(generateurDeCarte.objectifsMission.Count);
+                            }
+                            else
+                            {
+                                Debug.Log("Objectif peut être ramassé.");
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("Trop loin pour être ramassé.");
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Impossible obstacle");
+                    }
                 }
-            } else
-            {
-                if (GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].UnEnnemyDessus)
+                else
                 {
-                    Debug.Log("Un allié");   
+                    if (GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].UnEnnemyDessus)
+                    {
+                        Debug.Log("Un allié");
+                    }
+                    else if (GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].UnSoldatDessus)
+                    {
+                        Debug.Log("Peut attaquer");
+                    }
+                    else
+                    {
+                        Debug.Log("Impossible obstacle");
+                    }
                 }
-                else if (GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].UnSoldatDessus)
-                {
-                    Debug.Log("Peut attaquer");
-                } else
-                {
-                    Debug.Log("Impossible obstacle");
-                }
+
+
             }
-            
-            
+        } else
+        {
+            Debug.Log("Au dela de la map.");
         }
+        
     }
-
-   /* private void RapprocherPourAttaquer(Vector2Int ennemyPos, bool FaireChemin)
-    {
-        List<Vector2Int> casesVoisinEnnemy = new List<Vector2Int>();
-        if(GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int(ennemyPos.x-1, ennemyPos.y)].IsFree)
-        {
-            casesVoisinEnnemy.Add(new Vector2Int(ennemyPos.x - 1, ennemyPos.y));
-        } else if (GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int(ennemyPos.x + 1, ennemyPos.y)].IsFree)
-        {
-            casesVoisinEnnemy.Add(new Vector2Int(ennemyPos.x + 1, ennemyPos.y));
-        } else if (GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int(ennemyPos.x, ennemyPos.y-1)].IsFree)
-        {
-            casesVoisinEnnemy.Add(new Vector2Int(ennemyPos.x, ennemyPos.y-1));
-        } else if (GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int(ennemyPos.x , ennemyPos.y+1)].IsFree)
-        {
-            casesVoisinEnnemy.Add(new Vector2Int(ennemyPos.x, ennemyPos.y+1));
-        }
-
-        float bestDist = 10000000000000000000;
-        Vector2Int bestCase = new Vector2Int();
-        foreach(Vector2Int caseVoisinEnnemy in casesVoisinEnnemy)
-        {
-            if(Vector2.Distance(positionStart,(Vector2)caseVoisinEnnemy) < bestDist)
-            {
-                bestDist = Vector2.Distance(positionStart, (Vector2)caseVoisinEnnemy);
-                bestCase = caseVoisinEnnemy;
-            }
-        }
-
-        PositionEnd = (Vector2)bestCase;
-        GenerateChemin(FaireChemin);
-    }*/
 
     private bool CheckPeutAttaquer(Vector2Int ennemyPos)
     {
@@ -448,4 +457,73 @@ public class MouvementPersonnage : MonoBehaviour {
         trajetObject = new List<GameObject>();
         monTour = false;
     }
+
+
+    private void ObtenirEntiteProche()
+    {
+        float bestDistance = 100000000000;
+        GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.Where(combattant => combattant.GetComponent<MouvementPersonnage>().unJoueurControle).ToList<GameObject>().ForEach(joueur =>
+        {
+            if(Vector2.Distance(joueur.GetComponent<MouvementPersonnage>().PositionStart, PositionStart) < bestDistance)
+            {
+                bestDistance = Vector2.Distance(joueur.GetComponent<MouvementPersonnage>().PositionStart, PositionStart);
+                EnnemiFocus = joueur;
+            }
+        });
+   
+    }
+    
+    private Vector2Int ChercherPositionVoisine()
+    {
+        List<Vector2Int> PositionVoisineLibre = new List<Vector2Int>();
+        Vector2Int entPos = new Vector2Int((int)EnnemiFocus.GetComponent<MouvementPersonnage>().PositionStart.x, (int)EnnemiFocus.GetComponent<MouvementPersonnage>().PositionStart.y);
+
+        if(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int(entPos.x + 1, entPos.y)].IsFree)
+        {
+            PositionVoisineLibre.Add(new Vector2Int(entPos.x + 1, entPos.y));
+        }
+        if (generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int(entPos.x - 1, entPos.y)].IsFree)
+        {
+            PositionVoisineLibre.Add(new Vector2Int(entPos.x - 1, entPos.y));
+        }
+        if (generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int(entPos.x , entPos.y + 1)].IsFree)
+        {
+            PositionVoisineLibre.Add(new Vector2Int(entPos.x, entPos.y + 1));
+        }
+        if (generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int(entPos.x , entPos.y - 1)].IsFree)
+        {
+            PositionVoisineLibre.Add(new Vector2Int(entPos.x, entPos.y - 1));
+        }
+
+        return PositionVoisineLibre[0];
+    }
+
+    private void AllerSurEntite()
+    {
+        gestionnaireTrajet.ResetAStar(PositionStart, ChercherPositionVoisine());
+        List<Vector2> results = gestionnaireTrajet.CalculerTrajet();
+
+        if(results.Count < statCombatant.MpaCombattant*paDispo)
+        {
+            int coutEnPa = Mathf.FloorToInt(results.Count/ statCombatant.MpaCombattant);
+            paDispo -= coutEnPa;
+            trajet.Add(PositionEnd);
+            trajet.AddRange(results);
+            enTrajet = true;
+            isCalculating = false;
+        } else
+        {
+            int nbCaseMax = statCombatant.MpaCombattant * paDispo;
+            paDispo = 0;
+            List<Vector2> tempTarjet = new List<Vector2>();
+            tempTarjet.Add(positionEnd);
+            tempTarjet.AddRange(results);
+            trajet = tempTarjet.Skip(tempTarjet.Count - nbCaseMax).Take(nbCaseMax).ToList<Vector2>();
+            enTrajet = true;
+            isCalculating = false;
+            
+        }
+    }
+
+
 }

@@ -93,40 +93,31 @@ public class AStar {
 
     public void ChercherVoisins(Cell current)
     {
-        Debug.Log("Je rentre dans chercher voisins");
         List<Vector2> voisinPos = new List<Vector2>();
         List<Vector2> voisinClean = new List<Vector2>();
 
         if (terrain.Tableauterrain[new Vector2Int((int)current.Position.x + 1, (int)current.Position.y)].IsFree)
         {
-            Debug.Log("1 debut");
             voisinPos.Add(new Vector2(current.Position.x + 1, current.Position.y));
             voisinClean.Add(new Vector2(current.Position.x + 1, current.Position.y));
-            Debug.Log("1 fin");
         }
 
         if (terrain.Tableauterrain[new Vector2Int((int)current.Position.x - 1, (int)current.Position.y)].IsFree)
         {
-            Debug.Log("2 debut");
             voisinPos.Add(new Vector2(current.Position.x - 1, current.Position.y));
             voisinClean.Add(new Vector2(current.Position.x - 1, current.Position.y));
-            Debug.Log("2 fin");
         }
 
         if (terrain.Tableauterrain[new Vector2Int((int)current.Position.x , (int)current.Position.y + 1)].IsFree)
         {
-            Debug.Log("3 debut");
             voisinPos.Add(new Vector2(current.Position.x, current.Position.y + 1));
             voisinClean.Add(new Vector2(current.Position.x, current.Position.y + 1));
-            Debug.Log("3 fin");
         }
 
         if (terrain.Tableauterrain[new Vector2Int((int)current.Position.x , (int)current.Position.y - 1)].IsFree)
         {
-            Debug.Log("4 debut");
             voisinPos.Add(new Vector2(current.Position.x, current.Position.y - 1));
             voisinClean.Add(new Vector2(current.Position.x, current.Position.y - 1));
-            Debug.Log("4 debut");
         }
 
         foreach (Cell voisin in voisins)
@@ -157,13 +148,10 @@ public class AStar {
         
 
 
-        Debug.Log("Avant ajout de cell");
         foreach (Vector2 nouveauVoisin in voisinClean.ToArray())
         {
             voisins.Add(new Cell(nouveauVoisin,current.GCost+1,Mathf.Sqrt(Mathf.Pow(Arrive.Position.x-nouveauVoisin.x,2)+ Mathf.Pow(Arrive.Position.y - nouveauVoisin.y, 2)) * 1.75f,current));
         }
-
-        Debug.Log("Je sors dans chercher voisins");
     }
 
     public void UpdateCurrentPos()
