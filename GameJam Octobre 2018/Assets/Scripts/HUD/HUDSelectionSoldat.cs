@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HUDSelectionSoldat : MonoBehaviour {
 
@@ -113,5 +114,7 @@ public class HUDSelectionSoldat : MonoBehaviour {
     public void AccepterOnClick()
     {
         HUDDetailMission.Mission.Soldats = soldats;
+        SceneManager.LoadScene("Mission", LoadSceneMode.Single);
+
     }
 }

@@ -243,7 +243,7 @@ public class MouvementPersonnage : MonoBehaviour {
     private void ShowTrajet(bool FaireChemin)
     {
         Vector2 MousePos = PointToWorld();
-        if (GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].IsFree)
+        if (generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].IsFree)
         {
             Debug.Log("je passe");
             PositionEnd = MousePos;
@@ -253,19 +253,22 @@ public class MouvementPersonnage : MonoBehaviour {
         {
             if(unJoueurControle)
             {
-                if (GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].UnEnnemyDessus)
+                if (generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].UnEnnemyDessus)
                 {
                     if(CheckPeutAttaquer(new Vector2Int((int)MousePos.x, (int)MousePos.y)))
                     {
                         Debug.Log("Peux attaquer ennemy");
                         if(FaireChemin)
                         {
-                            TypeCombattant ennemy = GameObject.Find("GenerateurDeCarte").GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].EnnemyDessus.GetComponent<TypeCombattant>();
+                            TypeCombattant ennemy = generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].EnnemyDessus.GetComponent<MouvementPersonnage>().statCombatant;
                             Debug.Log("Avant : Vie enemy : " + ennemy.HpCombattant);
                             StatSoldat.AttaqueAdversaire(ennemy);
-                            if(ennemy.HpCombattant>0)
+                            if(ennemy.HpCombattant<=0)
                             {
-                                //ennemy.gameObject.
+                                Debug.LogWarning(GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.Count);
+                                GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.RemoveAt(GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.IndexOf(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].EnnemyDessus));
+                                GameObject.Destroy(generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].EnnemyDessus);
+                                Debug.LogWarning(GameObject.Find("CombatManager").GetComponent<CombatManager>().listeCombattant.Count);
                             }
                             Debug.Log("Après : Vie enemy : " + ennemy.HpCombattant);
                         }

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4742552482887332}
   - component: {fileID: 114941898650158080}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: CombatManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,12 +53,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listeCombattant: []
   CombattantCourrant: {fileID: 0}
-  listeSoldat:
-  - {fileID: 114991313490516022, guid: 5da47632d30b0be4e9021d6799d5510c, type: 2}
-  - {fileID: 114991313490516022, guid: 5da47632d30b0be4e9021d6799d5510c, type: 2}
-  - {fileID: 114991313490516022, guid: 5da47632d30b0be4e9021d6799d5510c, type: 2}
-  listeEnnemis:
-  - {fileID: 114159425636836132, guid: 99c2d63e5112b984f9d379eef6490cb1, type: 2}
-  - {fileID: 114159425636836132, guid: 99c2d63e5112b984f9d379eef6490cb1, type: 2}
-  - {fileID: 114159425636836132, guid: 99c2d63e5112b984f9d379eef6490cb1, type: 2}
+  listeSoldat: []
+  listeEnnemis: []
   CarteGenerateur: {fileID: 0}

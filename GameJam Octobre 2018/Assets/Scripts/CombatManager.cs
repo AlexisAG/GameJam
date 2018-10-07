@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour {
 
-    public List<TypeCombattant> listeCombattant = new List<TypeCombattant>();
+    public List<GameObject> listeCombattant = new List<GameObject>();
 
-    public TypeCombattant CombattantCourrant;
-
-    public List<Soldat> listeSoldat = new List<Soldat>();
-
-    public List<Ennemi> listeEnnemis = new List<Ennemi>();
+    public GameObject CombattantCourrant;
 
     public GenerateurDeCarte CarteGenerateur;
 
@@ -26,21 +23,6 @@ public class CombatManager : MonoBehaviour {
             CarteGenerateur.TypeMission = Mission.TypeMission.Recherche;
         }
 
-
-        if (HUDDetailMission.Mission != null)
-        {
-            listeSoldat = HUDDetailMission.Mission.Soldats;
-            listeEnnemis = HUDDetailMission.Mission.Ennemis;
-        }
-		foreach(Soldat soldat in listeSoldat)
-        {
-            CarteGenerateur.soldats.Add(soldat);
-        }
-
-        foreach (Ennemi ennemi in listeEnnemis)
-        {
-            CarteGenerateur.ennemis.Add(ennemi);
-        }
         switch(Environnement.Instance.SaisonCourante)
         {
             case "Ete":
@@ -77,6 +59,42 @@ public class CombatManager : MonoBehaviour {
             CombattantCourrant.GetComponent<MouvementPersonnage>().FinDeTour();
             changementTour();
         }
+        if(listeCombattant.Where(combattant => combattant.GetComponent<MouvementPersonnage>().unJoueurControle == false).ToList<GameObject>().Count == 0)
+        {
+            switch (HUDDetailMission.Mission.GetTypeObjectif())
+            {
+                case Mission.TypeMission.Defense:
+                    break;
+                case Mission.TypeMission.Survivant:
+                    CampementData.Instance.nbSurvivant += HUDDetailMission.Mission.GetGainMission();
+                    break;
+                case Mission.TypeMission.Recherche:
+                    break;
+                default:
+                    break;
+            }
+
+            Environnement.Instance.JoursPasses += 1;
+            CampementData.Instance.missionsDisponible.RemoveAt(CampementData.Instance.missionsDisponible.IndexOf(HUDDetailMission.Mission));
+            int random = Random.Range(0, 2);
+
+            switch (random)
+            {
+                case 0:
+                    GenerationMissionDefense.GenerateMission();
+                    break;
+                case 1:
+                    GenerationMissionExploration.GenerateMission();
+                    break;
+                case 2:
+                    GenerationMissionSurvivant.GenerateMission();
+                    break;
+            }
+
+            SceneManager.LoadScene("Campement", LoadSceneMode.Single);
+        }
+
+
     }
 
     public void changementTour()

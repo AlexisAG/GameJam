@@ -53,3 +53,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xSize: 50
   ySize: 50
+  season: 0
+  nbObjectif: 0
+  TypeMission: 0
+  CombatantSpawne: []
+  soldats: []
+  ennemis: []
