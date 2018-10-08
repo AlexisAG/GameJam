@@ -14,8 +14,8 @@ public class Objectif {
     private string[] objectifPath =
     {
         "", // 0
-        "Assets/Modeles/Mesh_coffre.fbx", // 1 : Ressource
-        "Assets/Modeles/Mesh_civil.fbx" // 2 : Civil
+        "Modeles/Mesh_coffre", // 1 : Ressource
+        "Modeles/Mesh_civil" // 2 : Civil
     };
 
 
@@ -66,7 +66,7 @@ public class Objectif {
         TypeObjectif = m_typeObjectif;
         if(typeObjectif != 0)
         {
-            Mesh = Object.Instantiate<GameObject>(AssetDatabase.LoadAssetAtPath<GameObject>(objectifPath[m_typeObjectif]), new Vector3(XPos, 0.5f, YPos), Quaternion.identity);
+            Mesh = Object.Instantiate<GameObject>(Resources.Load<GameObject>(objectifPath[m_typeObjectif]), new Vector3(XPos, 0.5f, YPos), Quaternion.identity);
         }
         
     }

@@ -4,71 +4,85 @@ using UnityEngine;
 
 public class Soldat : ScriptableObject
 {
-
-    private string classe = "";
+    private string classeString = "";
     public TypeCombattant combattant;
-    private Buff buffCombattant;
+    public Buff buffCombattant;
+    public GestionXP.NiveauXP niveauSoldat;
+    public GestionXP.NiveauXP niveauSuivant;
 
-    public Soldat(TypeCombattant.nomTypeCombattant typeComb)
+    public Soldat(int classe)
     {
         buffCombattant = new Buff();
+        this.niveauSoldat = new GestionXP.NiveauXP();
 
-        if (typeComb == TypeCombattant.nomTypeCombattant.Guerrier)
+        if (classe == 0)
         {
             combattant = new Guerrier();
-            classe = "Guerrier";
+            classeString = "Guerrier";
 
         }
-        // 2 pour Assassin
-        if (typeComb == TypeCombattant.nomTypeCombattant.Assassin)
+        // 1 pour Assassin
+        if (classe == 1)
         {
             combattant = new Assassin();
-            classe = "Assassin";
+            classeString = "Assassin";
         }
-        // 3 pour Sniper
-        if (typeComb == TypeCombattant.nomTypeCombattant.Sniper)
+        // 2 pour Sniper
+        if (classe == 2)
         {
             combattant = new Sniper();
-            classe = "Sniper";
+            classeString = "Sniper";
 
         }
-        // 4 pour Eclaireur
-        if (typeComb == TypeCombattant.nomTypeCombattant.Eclaireur)
+        // 3 pour Eclaireur
+        if (classe == 3)
         {
             combattant = new Eclaireur();
-            classe = "Eclaireur";
+            classeString = "Eclaireur";
         }
+
+        if (this.niveauSoldat.XPActuelle >= this.niveauSoldat.XPMax)
+            UpNiveau();
     }
 
     public string GetClasse()
     {
-        return classe;
+        return classeString;
     }
 
     public void AttaqueAdversaire(TypeCombattant adversaire)
     {
-        adversaire.recoitDegats(combattant, buffCombattant.DegatsBuffDebuff);
+        adversaire.RecoitDegats(GetTypeCombattant(), GetBuffCombattant().DegatsBuffDebuff);
     }
 
     public void CheckEtat()
     {
 
-        if (buffCombattant.EtatBuff.NomEtat == Etat.etatFaible)
-        {
-            buffCombattant.PasAssezDeNourriture();
-        }
-        if (buffCombattant.EtatBuff.NomEtat == Etat.etatNeutre)
-        {
-            buffCombattant.NourritureOk();
-        }
-        if (buffCombattant.EtatBuff.NomEtat == Etat.etatEnForme)
-        {
-            buffCombattant.TropDeNourriture();
-        }
+    }
+
+    public void UpNiveau(){
+        double surplusXP = (GestionXP.Instance.gainXPMission + this.niveauSoldat.XPActuelle) - this.niveauSoldat.XPMax;
+        GestionXP.Instance.AugmenterNiveauSoldat(this, surplusXP);
     }
 
     public TypeCombattant GetTypeCombattant()
     {
         return combattant;
+    }
+
+    public Buff GetBuffCombattant()
+    {
+        return buffCombattant;
+    }
+
+    public override string ToString()
+    {
+        return "\nType : " + GetTypeCombattant().NomCombattant +
+               "\nHP : " + GetTypeCombattant().HpCombattant + "(+" + GetTypeCombattant().GainHpParNiveau +
+               ")\n Degats : " + GetTypeCombattant().DegatsCombattant + "(+" + GetTypeCombattant().GainDegatsParNiveau +
+               "\n PA : " + GetTypeCombattant().PaCombattant +
+               "\nMPA : " + GetTypeCombattant().MpaCombattant +
+               "\nRange : " + GetTypeCombattant().AttackRangeCombattant +
+               "\nNiveau : " + GetTypeCombattant().NiveauCombattant;
     }
 }

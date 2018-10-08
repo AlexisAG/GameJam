@@ -13,8 +13,6 @@ public class HighlightOnMouse : MonoBehaviour {
     [SerializeField]
     private Color colorOnClick;
 
-
-
     private bool isLit;
     private bool clicked;
     private Light objectLight;

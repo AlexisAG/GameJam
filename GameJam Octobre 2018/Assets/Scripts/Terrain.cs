@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
-public class Terrain {
+public class Terrain
+{
     //temp
     private int typeCase;
     private float xPos;
@@ -21,14 +21,14 @@ public class Terrain {
     {
         new string[] // Été
         {
-            "Assets/Modeles/Mesh_SolEteBase.fbx", // 0 Été
-            "Assets/Modeles/Mesh_SolEtePierre.fbx", // 1 Été
-            "Assets/Modeles/Mesh_SoEtelHerbe.fbx" // 2 Été
+            "Modeles/Mesh_SolEteBase", // 0 Été
+            "Modeles/Mesh_SolEtePierre", // 1 Été
+            "Modeles/Mesh_SoEtelHerbe" // 2 Été
         },
         new string[] // Hiver
         {
-            "Assets/Modeles/Mesh_SolHiverBase.fbx", // 3 Hiver
-            "Assets/Modeles/Mesh_SolHiverPierre.fbx" // 4 Hiver
+            "Modeles/Mesh_SolHiverBase", // 3 Hiver
+            "Modeles/Mesh_SolHiverPierre" // 4 Hiver
         }
     };
 
@@ -36,13 +36,13 @@ public class Terrain {
     {
         new string[] // Été
         {
-            "Assets/Modeles/Mesh_ArbreEte.fbx", // 0 Été
-            "Assets/Modeles/Mesh_Pierre.fbx"
+            "Modeles/Mesh_ArbreEte", // 0 Été
+            "Modeles/Mesh_Pierre"
         },
         new string[] // Hiver
         {
-            "Assets/Modeles/Mesh_ArbreHiver.fbx", // 3 Hiver
-            "Assets/Modeles/Mesh_Pierre.fbx" // 4 Hiver
+            "Modeles/Mesh_ArbreHiver", // 3 Hiver
+            "Modeles/Mesh_Pierre" // 4 Hiver
         }
     };
 
@@ -122,21 +122,22 @@ public class Terrain {
         {
             IsFree = true;
             int random = Mathf.FloorToInt(Random.Range(0, terrainsPath[Season].Length));
-            Object.Instantiate<GameObject>(AssetDatabase.LoadAssetAtPath<GameObject>(terrainsPath[Season][random]), new Vector3(XPos, 0, YPos), Quaternion.identity);
-        } else
+            Object.Instantiate<GameObject>(Resources.Load<GameObject>(terrainsPath[Season][random]), new Vector3(XPos, 0, YPos), Quaternion.identity);
+        }
+        else
         {
             IsFree = false;
-            if(m_typeCase == 2)
+            if (m_typeCase == 2)
             {
                 int random = Mathf.FloorToInt(Random.Range(0, terrainsPath[Season].Length));
                 int randomObstacle = Mathf.FloorToInt(Random.Range(0, obstaclePath[Season].Length));
-                Object.Instantiate<GameObject>(AssetDatabase.LoadAssetAtPath<GameObject>(terrainsPath[Season][random]), new Vector3(XPos, 0, YPos), Quaternion.identity);
-                Object.Instantiate<GameObject>(AssetDatabase.LoadAssetAtPath<GameObject>(obstaclePath[Season][randomObstacle]), new Vector3(XPos, 1, YPos), Quaternion.identity);
+                Object.Instantiate<GameObject>(Resources.Load<GameObject>(terrainsPath[Season][random]), new Vector3(XPos, 0, YPos), Quaternion.identity);
+                Object.Instantiate<GameObject>(Resources.Load<GameObject>(obstaclePath[Season][randomObstacle]), new Vector3(XPos, 1, YPos), Quaternion.identity);
             }
         }
-        
-        
-        
-        
+
+
+
+
     }
 }

@@ -95,7 +95,6 @@ public class CombatManager : MonoBehaviour {
 
     public void FinMission()
     {
-        Environnement.Instance.UpdateEnvironnement();
         CampementData.Instance.missionsDisponible.RemoveAt(CampementData.Instance.missionsDisponible.IndexOf(HUDDetailMission.Mission));
         int random = Random.Range(0, 2);
 

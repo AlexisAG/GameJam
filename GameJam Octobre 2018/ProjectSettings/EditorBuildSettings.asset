@@ -10,7 +10,7 @@ EditorBuildSettings:
     guid: e486924fb8231824683eb12763943005
   - enabled: 1
     path: Assets/Scenes/Campement.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    guid: 015c8f469ff784a419e7240152e6b135
   - enabled: 1
     path: Assets/Scenes/Mission.unity
     guid: b494b45cfb135d349ab5c49e658971fc

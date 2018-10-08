@@ -9,10 +9,10 @@ public class HUDMainMenu : MonoBehaviour {
 
     public void NewGameOnClick()
     {
-        CampementData.Instance.soldats.Add(new Soldat(TypeCombattant.nomTypeCombattant.Assassin));
-        CampementData.Instance.soldats.Add(new Soldat(TypeCombattant.nomTypeCombattant.Eclaireur));
-        CampementData.Instance.soldats.Add(new Soldat(TypeCombattant.nomTypeCombattant.Guerrier));
-        CampementData.Instance.soldats.Add(new Soldat(TypeCombattant.nomTypeCombattant.Sniper));
+        CampementData.Instance.soldats.Add(new Soldat((int)TypeCombattant.nomTypeCombattant.Assassin));
+        CampementData.Instance.soldats.Add(new Soldat((int)TypeCombattant.nomTypeCombattant.Eclaireur));
+        CampementData.Instance.soldats.Add(new Soldat((int)TypeCombattant.nomTypeCombattant.Guerrier));
+        CampementData.Instance.soldats.Add(new Soldat((int)TypeCombattant.nomTypeCombattant.Sniper));
 
         GenerationMissionSurvivant.GenerateMission();
         GenerationMissionExploration.GenerateMission();

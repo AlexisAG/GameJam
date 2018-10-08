@@ -620,7 +620,7 @@ MonoBehaviour:
   type: {fileID: 114165165436384060}
   difficulte: {fileID: 114024504338330338}
   gain: {fileID: 114543083623847540}
-  refHUD: {fileID: 0}
+  refHUD: {fileID: 1138668963705540, guid: c2458856e7a60094f934ef4c3963d0db, type: 2}
 --- !u!222 &222042671782544774
 CanvasRenderer:
   m_ObjectHideFlags: 1
