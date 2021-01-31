@@ -338,7 +338,7 @@ public class MouvementPersonnage : MonoBehaviour {
                     {
                         Debug.Log("Un allié");
                     }
-                    else if (generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].estUnObjectif)
+                    else if (generateurDeCarte.GetComponent<GenerateurDeCarte>().Tableauterrain[new Vector2Int((int)MousePos.x, (int)MousePos.y)].EstUnObjectif)
                     {
                         if (CheckSiVoisin(new Vector2Int((int)MousePos.x, (int)MousePos.y)))
                         {

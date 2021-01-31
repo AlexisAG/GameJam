@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class Terrain
 {
-    //temp
-    private int typeCase;
-    private float xPos;
-    private float yPos;
-    private bool isFree;
-    public bool UnEnnemyDessus;
+    public int TypeCase { get; set; }
+    public int Season { get; set; }  // 0 : Ete, 1 : Hiver // A CHANGER EN ENUM
+
+    public float XPos { get; set; }
+    public float YPos { get; set; }
+
+    public bool IsFree { get; set; }
+    public bool UnEnnemyDessus { get; set; }
+    public bool UnSoldatDessus { get; set; }
+    public bool EstUnObjectif { get; set; }
+
     public GameObject EnnemyDessus;
-    public bool UnSoldatDessus;
     public GameObject SoldatDessus;
-    public bool estUnObjectif;
-    public Objectif Objectif;
-    private int season; // 0 : Ete, 1 : Hiver
     //public GameObject caseMesh;
+
+    public Objectif Objectif;
+
+    /* CHEMIN AUX MODELES */
+
     private string[][] terrainsPath =
     {
         new string[] // Été
@@ -46,78 +52,16 @@ public class Terrain
         }
     };
 
-    public int TypeCase
-    {
-        get
-        {
-            return typeCase;
-        }
+    /* CONSTRUCTEUR */
 
-        set
-        {
-            typeCase = value;
-        }
-    }
-
-    public float XPos
-    {
-        get
-        {
-            return xPos;
-        }
-
-        set
-        {
-            xPos = value;
-        }
-    }
-
-    public float YPos
-    {
-        get
-        {
-            return yPos;
-        }
-
-        set
-        {
-            yPos = value;
-        }
-    }
-
-    public bool IsFree
-    {
-        get
-        {
-            return isFree;
-        }
-
-        set
-        {
-            isFree = value;
-        }
-    }
-
-    public int Season
-    {
-        get
-        {
-            return season;
-        }
-
-        set
-        {
-            season = value;
-        }
-    }
-
-    public Terrain(int m_typeCase, float m_xPos, float m_yPos, int m_season)
+    public Terrain (int m_typeCase, float m_xPos, float m_yPos, int m_season)
     {
         TypeCase = m_typeCase;
         XPos = m_xPos;
         YPos = m_yPos;
         Season = m_season;
-        estUnObjectif = false;
+        EstUnObjectif = false;
+
         if (m_typeCase == 1)
         {
             IsFree = true;
@@ -134,10 +78,9 @@ public class Terrain
                 Object.Instantiate<GameObject>(Resources.Load<GameObject>(terrainsPath[Season][random]), new Vector3(XPos, 0, YPos), Quaternion.identity);
                 Object.Instantiate<GameObject>(Resources.Load<GameObject>(obstaclePath[Season][randomObstacle]), new Vector3(XPos, 1, YPos), Quaternion.identity);
             }
+
         }
 
-
-
-
     }
+
 }
